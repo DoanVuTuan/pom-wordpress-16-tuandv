@@ -12,25 +12,26 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 
 public class Login_01_ValidateLoginForm {
 	WebDriver driver;
-	String userDir = System.getProperty("user.dir");
+	
 
 	By emailTextboxBy = By.xpath("//input[@id='usernameOrEmail']");
 	By passwordTextboxBy = By.xpath("//input[@id='password']");
 	By loginButtonBy = By.xpath("//div[@class='login__form-action']/button");
-	
+
 	By emailErrorMesssageBy = By.xpath("//div[@class='form-input-validation is-error']/span");
 	By passwordErrorMesssageBy = By.xpath("//div[@class='form-input-validation is-error']/span");
 
 	@BeforeClass
 	public void beforeClass() {
-		System.setProperty("webdriver.gecko.driver", userDir + "\\browserDriver\\geckodriver.exe");
+		
 		driver = new FirefoxDriver();
-		
+
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		
+
 	}
 
 	@BeforeMethod
@@ -46,6 +47,7 @@ public class Login_01_ValidateLoginForm {
 		Assert.assertEquals(driver.findElement(emailErrorMesssageBy).getText().trim(), "Please enter a username or email address.");
 
 	}
+
 	@Test
 	public void Validate_02_InvalidEmail() {
 		driver.findElement(emailTextboxBy).sendKeys("123@123.123");
@@ -53,14 +55,16 @@ public class Login_01_ValidateLoginForm {
 
 		Assert.assertEquals(driver.findElement(emailErrorMesssageBy).getText().trim(), "Please log in using your WordPress.com username instead of your email address.");
 	}
+
 	@Test
 	public void Validate_03_EmailNotExist() {
 		driver.findElement(emailTextboxBy).sendKeys("tuandv." + randomNumber() + "@gmail.com");
 		driver.findElement(loginButtonBy).click();
 		// User does not exist.\n Would you like to \n create a new account\n?
 
-		Assert.assertEquals(driver.findElement(emailErrorMesssageBy).getText().trim(), "User does not exist.\n Would you like to\n create a new account\n?");
+		Assert.assertEquals(driver.findElement(emailErrorMesssageBy).getText().trim(), "User does not exist. Would you like to create a new account?");
 	}
+
 	@Test
 	public void Validate_04_EmptyPassword() {
 		driver.findElement(emailTextboxBy).sendKeys("automationeditor");
@@ -70,6 +74,7 @@ public class Login_01_ValidateLoginForm {
 
 		Assert.assertEquals(driver.findElement(passwordErrorMesssageBy).getText().trim(), "Don't forget to enter your password.");
 	}
+
 	@Test
 	public void Validate_05_PasswordLessThanSixChars() {
 		driver.findElement(emailTextboxBy).sendKeys("automationeditor");
@@ -79,6 +84,7 @@ public class Login_01_ValidateLoginForm {
 
 		Assert.assertEquals(driver.findElement(passwordErrorMesssageBy).getText().trim(), "Oops, that's not the right password. Please try again!");
 	}
+
 	@Test
 	public void Validate_06_ValidPassword() {
 		driver.findElement(emailTextboxBy).sendKeys("automationeditor");
@@ -87,9 +93,11 @@ public class Login_01_ValidateLoginForm {
 		driver.findElement(loginButtonBy).click();
 
 		Assert.assertTrue(driver.findElement(By.xpath("//h1[(text()='Dashboard')]")).isDisplayed());
-		Assert.assertTrue(driver.findElement(By.xpath("//div[@id='dashboard-widgets-wrap')]")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@id='dashboard-widgets-wrap']")).isDisplayed());
 
 	}
+
+
 
 	@AfterClass
 	public void afterClass() {
