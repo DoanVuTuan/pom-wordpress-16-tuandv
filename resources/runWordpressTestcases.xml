@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Wordpress" parallel="false">
+  <test name="Run on Firefox">
+    <classes>
+      <class name=""/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
