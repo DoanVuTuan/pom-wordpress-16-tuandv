@@ -2,8 +2,8 @@
 <suite name="Wordpress" parallel="false">
   <test name="Run on Firefox">
     <classes>
-      <class name="com.wordpress.login.Login_02_ValidateLoginForm_Apply_AbstactPage_Init"/>
-       <class name="com.wordpress.login.Login_03_ValidateLoginForm_Apply_AbstactPage_Extends"/>
+      <class name="com.wordpress.login.Login_04_Page_Object_Pattern"/>
+
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

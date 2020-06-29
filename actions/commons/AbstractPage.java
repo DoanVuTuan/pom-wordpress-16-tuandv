@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class AbstractPage {
+public abstract class AbstractPage {
 
 	public void openURL(WebDriver driver, String urlValue) {
 		driver.get(urlValue);
@@ -142,7 +142,7 @@ public class AbstractPage {
 		return findElementByXpath(driver, locator).getAttribute(attributeName);
 	}
 
-	public String getElementText (WebDriver driver, String locator) {
+	public String getElementText(WebDriver driver, String locator) {
 		return findElementByXpath(driver, locator).getText().trim();
 	}
 
@@ -241,23 +241,22 @@ public class AbstractPage {
 		action = new Actions(driver);
 		action.moveToElement(findElementByXpath(driver, locator)).perform();
 	}
-	
+
 	public void doubleClickToElement(WebDriver driver, String locator) {
 		action = new Actions(driver);
 		action.doubleClick(findElementByXpath(driver, locator)).perform();
 	}
-	
+
 	public void rightClickToElement(WebDriver driver, String locator) {
 		action = new Actions(driver);
 		action.contextClick(findElementByXpath(driver, locator)).perform();
 	}
-	
+
 	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key) {
 		action = new Actions(driver);
 		action.sendKeys(findElementByXpath(driver, locator), key).perform();
 	}
-	
-	
+
 	public Object executeForBrowser(WebDriver driver, String javaSript) {
 		jsExecutor = (JavascriptExecutor) driver;
 		return jsExecutor.executeScript(javaSript);
@@ -304,20 +303,17 @@ public class AbstractPage {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", findElementByXpath(driver, locator));
 	}
-	
+
 	public boolean isImageLoaded(WebDriver driver, String locator) {
 		jsExecutor = (JavascriptExecutor) driver;
-		boolean status = (boolean) jsExecutor.executeScript
-				("return arguments[0].complete && typeof arguments[0]"
-						+ ".naturalWidth !='undefined' && arguments[0]"
-						+ ".naturalWidth > 0", findElementByXpath(driver, locator) );
+		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof arguments[0]" + ".naturalWidth !='undefined' && arguments[0]" + ".naturalWidth > 0", findElementByXpath(driver, locator));
 		if (status) {
 			return true;
 		}
 		return false;
-		
+
 	}
-	
+
 	public void waitForElementVisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator)));
@@ -327,13 +323,12 @@ public class AbstractPage {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(locator)));
 	}
-	
+
 	public void waitForElementClickable(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(locator)));
 	}
-	
-	
+
 	private Select select;
 	private Actions action;
 	private WebElement element;
