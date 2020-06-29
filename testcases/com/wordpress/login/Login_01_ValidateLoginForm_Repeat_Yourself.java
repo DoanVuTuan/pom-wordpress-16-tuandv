@@ -14,7 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 
-public class Login_01_ValidateLoginForm {
+public class Login_01_ValidateLoginForm_Repeat_Yourself {
 	WebDriver driver;
 	
 
