@@ -30,7 +30,7 @@ public class Login_02_ValidateLoginForm_Apply_AbstactPage_Init {
 	@BeforeClass
 	public void beforeClass() {
 		driver = new FirefoxDriver();
-		abstractPage = new AbstractPage();
+		//abstractPage = new AbstractPage();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
