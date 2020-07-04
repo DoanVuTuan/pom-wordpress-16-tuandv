@@ -7,5 +7,6 @@
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libraries/selenium-server-standalone-2.53.1.jar"/>
+	<classpathentry kind="lib" path="libraries/selenium-java-2.53.1-srcs.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

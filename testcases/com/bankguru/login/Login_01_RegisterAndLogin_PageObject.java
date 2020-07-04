@@ -16,7 +16,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Login_01_RegisterAndLogin {
+public class Login_01_RegisterAndLogin_PageObject {
 	WebDriver driver;
 	LoginPageObject loginPage;
 	HomePageObject homePage;
