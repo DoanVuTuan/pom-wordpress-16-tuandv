@@ -20,7 +20,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 
-public class Login_04_Page_Object_Pattern extends AbstractPage {
+public class Login_04_Page_Object_Pattern  {
 	WebDriver driver;
 	LoginPageObject loginPage;
 	DashboardPageObject dashboardPage;

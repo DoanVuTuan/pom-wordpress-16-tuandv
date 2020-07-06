@@ -2,9 +2,9 @@ package commons;
 
 import org.openqa.selenium.WebDriver;
 
-import pageFactory.HomePageObject;
-import pageFactory.LoginPageObject;
-import pageFactory.RegisterPageObject;
+import pageObjects.wordpress.DashboardPageObject;
+import pageObjects.wordpress.LoginPageObject;
+
 
 public class PageGeneratorManager {
 	
@@ -13,13 +13,8 @@ public class PageGeneratorManager {
 		
 	}
 	
-	public static RegisterPageObject getRegisterPage(WebDriver driver) {
-		return new RegisterPageObject(driver);
-		
-	}
-	
-	public static HomePageObject getHomePage(WebDriver driver) {
-		return new HomePageObject(driver);
+		public static DashboardPageObject getDashboardPage(WebDriver driver) {
+		return new DashboardPageObject(driver);
 		
 	}
 
