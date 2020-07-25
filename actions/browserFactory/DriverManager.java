@@ -26,6 +26,7 @@ public abstract class DriverManager {
 		}
 		driver.get(GlobalConstants.WORDPRESS_URL);
 		driver.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT,TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 		return driver;
 
 	}

@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-import commons.PageGeneratorManager;
+import pageObjects.bankGugu.PageGeneratorManager;
 public class LoginPageObject extends AbsttractPage {
 
 	WebDriver driver;

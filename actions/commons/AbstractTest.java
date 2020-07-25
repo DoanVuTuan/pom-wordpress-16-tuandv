@@ -29,7 +29,8 @@ public abstract class AbstractTest {
 			System.out.println("Please select browser!");
 		}
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.get("https://automationfc.wordpress.com/wp-admin");
+		driver.manage().window().maximize();
+		driver.get(GlobalConstants.WORDPRESS_URL);
 		return driver;
 	}
 	

@@ -4,18 +4,21 @@ import org.testng.annotations.Test;
 
 import browserFactory.BrowserDriverFactory;
 import browserFactory.DriverManager;
-import commons.AbstractTest;
-import commons.PageGeneratorManager;
 import pageObjects.wordpress.DashboardPageObject;
 import pageObjects.wordpress.LoginPageObject;
+import pageObjects.wordpress.PageGeneratorManager;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
+
+import java.util.Random;
+
 import org.openqa.selenium.WebDriver;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Login_06_Browsers_Factory_Pattern extends AbstractTest {
+public class Login_06_Browsers_Factory_Pattern  {
 	
 	DriverManager driverManger;
 
@@ -79,7 +82,10 @@ public class Login_06_Browsers_Factory_Pattern extends AbstractTest {
 	public void afterClass() {
 		driver.quit();
 	}
-
+	public int randomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(999999);
+	}
 	WebDriver driver;
 	LoginPageObject loginPage;
 	DashboardPageObject dashboardPage;

@@ -1,4 +1,4 @@
-package pageFactory;
+package pageObjects.bankGugu;
 
 import org.openqa.selenium.WebDriver;
 

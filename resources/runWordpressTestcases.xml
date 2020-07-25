@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Wordpress" parallel="false">
 
-	<test name="Run on Chrome headless">
-		<parameter name="browser" value="chrome"></parameter>
+	<test name="Run on Chrome">
+		<parameter name="browser" value="firefox"></parameter>
 		<classes>
-			<class name="com.wordpress.login.Login_06_Browsers_Factory_Pattern" />
+			<class name="com.wordpress.login.Login_07_WebDriver_Life_Cycle" />
 		</classes>
 	</test> 
 

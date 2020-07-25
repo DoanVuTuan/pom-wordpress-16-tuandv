@@ -18,9 +18,10 @@ public class LoginPageObject extends AbstractPage {
 		sendkeyToElement(driver, LoginPageUI.EMAIL_TEXTBOX, email);
 	}
 
-	public void clickToContinueOrLoginButton() {
+	public DashboardPageObject clickToContinueOrLoginButton() {
 		waitForElementVisible(driver, LoginPageUI.CONTINUE_OR_LOGIN_BUTTON);
 		clickToElement(driver, LoginPageUI.CONTINUE_OR_LOGIN_BUTTON);
+		return PageGeneratorManager.getDashboardPage(driver);
 	}
 
 	public String getEmailOrPasswordErrorMessage() {

@@ -2,10 +2,10 @@ package com.bankguru.login;
 
 import org.testng.annotations.Test;
 
-import pageFactory.PageGeneratorManager;
 import pageFactory.HomePageObject;
 import pageFactory.LoginPageObject;
 import pageFactory.RegisterPageObject;
+import pageObjects.bankGugu.PageGeneratorManager;
 
 import org.testng.annotations.BeforeClass;
 

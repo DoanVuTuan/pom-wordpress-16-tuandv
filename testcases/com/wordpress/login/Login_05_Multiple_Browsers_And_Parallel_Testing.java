@@ -3,9 +3,10 @@ package com.wordpress.login;
 import org.testng.annotations.Test;
 
 import commons.AbstractTest;
-import commons.PageGeneratorManager;
 import pageObjects.wordpress.DashboardPageObject;
 import pageObjects.wordpress.LoginPageObject;
+import pageObjects.wordpress.PageGeneratorManager;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.openqa.selenium.WebDriver;

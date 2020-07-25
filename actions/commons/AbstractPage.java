@@ -13,6 +13,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.wordpress.MediaPageObject;
+import pageObjects.wordpress.PageGeneratorManager;
+import pageObjects.wordpress.PagesPageObject;
+import pageObjects.wordpress.PostsPageObject;
+import pageUI.wordpress.DashboardPageUI;
+import pageUI.wordpress.PagesPageUI;
+import pageUI.wordpress.PostsPageUI;
+
 public abstract class AbstractPage {
 
 	public void openURL(WebDriver driver, String urlValue) {
@@ -328,11 +336,34 @@ public abstract class AbstractPage {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(locator)));
 	}
+	
+	
+	
+	// Common page --> Open page
+	
+	public PostsPageObject clickToPostsMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.POSTS_LINK);
+		clickToElement(driver, AbstractPageUI.POSTS_LINK);
+		return PageGeneratorManager.getPostsPage(driver);
+	}
+	
+	public PagesPageObject clickToPagesMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.PAGES_LINK);
+		clickToElement(driver, AbstractPageUI.PAGES_LINK);
+		return PageGeneratorManager.getPagesPage(driver);
+	
+	}
+	
+	public MediaPageObject clickToMediaMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.MEDIA_LINK);
+		clickToElement(driver, AbstractPageUI.MEDIA_LINK);
+		return PageGeneratorManager.getMediaPage(driver);
+
+	}
 
 	private Select select;
 	private Actions action;
 	private WebElement element;
-	private long shortTimeout = 5;
 	private long longTimeout = 30;
 	private List<WebElement> elements;
 	private WebDriverWait explicitWait;
