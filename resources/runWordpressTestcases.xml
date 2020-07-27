@@ -4,7 +4,7 @@
 	<test name="Run on Chrome">
 		<parameter name="browser" value="firefox"></parameter>
 		<classes>
-			<class name="com.wordpress.login.Login_07_WebDriver_Life_Cycle" />
+			<class name="com.wordpress.login.Login_08_Dynamic_Loacator_Rest_Param" />
 		</classes>
 	</test> 
 

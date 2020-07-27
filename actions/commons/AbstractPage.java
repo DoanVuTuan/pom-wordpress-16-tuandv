@@ -17,9 +17,6 @@ import pageObjects.wordpress.MediaPageObject;
 import pageObjects.wordpress.PageGeneratorManager;
 import pageObjects.wordpress.PagesPageObject;
 import pageObjects.wordpress.PostsPageObject;
-import pageUI.wordpress.DashboardPageUI;
-import pageUI.wordpress.PagesPageUI;
-import pageUI.wordpress.PostsPageUI;
 
 public abstract class AbstractPage {
 
@@ -136,8 +133,16 @@ public abstract class AbstractPage {
 		return driver.findElements(byXpath(locator));
 	}
 
+	public String castToObject(String locator, String... values) {
+		return String.format(locator, (Object[]) values);
+	}
+
 	public void clickToElement(WebDriver driver, String locator) {
 		findElementByXpath(driver, locator).click();
+	}
+
+	public void clickToElement(WebDriver driver, String locator, String... values) {
+		findElementByXpath(driver, castToObject(locator, values)).click();
 	}
 
 	public void sendkeyToElement(WebDriver driver, String locator, String value) {
@@ -180,7 +185,7 @@ public abstract class AbstractPage {
 		sleepInSeconds(1);
 
 		// 2- Chờ cho tất cả các item con được load ra (tìm tag chứa text)
-		explicitWait = new WebDriverWait(driver, longTimeout);
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childItemLocator)));
 
 		// Đưa tất cả các item trong dropdown vào list để kiểm tra
@@ -227,6 +232,10 @@ public abstract class AbstractPage {
 
 	public boolean isElementDisplayed(WebDriver driver, String locator) {
 		return findElementByXpath(driver, locator).isDisplayed();
+	}
+
+	public boolean isElementDisplayed(WebDriver driver, String locator, String... values) {
+		return findElementByXpath(driver, castToObject(locator, values)).isDisplayed();
 	}
 
 	public boolean isElementEnable(WebDriver driver, String locator) {
@@ -323,48 +332,83 @@ public abstract class AbstractPage {
 	}
 
 	public void waitForElementVisible(WebDriver driver, String locator) {
-		explicitWait = new WebDriverWait(driver, longTimeout);
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator)));
 	}
 
+	public void waitForElementVisible(WebDriver driver, String locator, String... values) {
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(castToObject(locator, values))));
+	}
+
 	public void waitForElementInisible(WebDriver driver, String locator) {
-		explicitWait = new WebDriverWait(driver, longTimeout);
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(locator)));
 	}
 
 	public void waitForElementClickable(WebDriver driver, String locator) {
-		explicitWait = new WebDriverWait(driver, longTimeout);
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(locator)));
 	}
-	
-	
-	
+
+	public void waitForElementClickable(WebDriver driver, String locator, String... values) {
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(castToObject(locator, values))));
+	}
+
 	// Common page --> Open page
-	
+
 	public PostsPageObject clickToPostsMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.POSTS_LINK);
 		clickToElement(driver, AbstractPageUI.POSTS_LINK);
 		return PageGeneratorManager.getPostsPage(driver);
 	}
-	
+
 	public PagesPageObject clickToPagesMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.PAGES_LINK);
 		clickToElement(driver, AbstractPageUI.PAGES_LINK);
 		return PageGeneratorManager.getPagesPage(driver);
-	
+
 	}
-	
+
 	public MediaPageObject clickToMediaMenu(WebDriver driver) {
+
 		waitForElementClickable(driver, AbstractPageUI.MEDIA_LINK);
 		clickToElement(driver, AbstractPageUI.MEDIA_LINK);
 		return PageGeneratorManager.getMediaPage(driver);
 
 	}
 
+	// Dynamic locator
+	// 1. Apply cho những app it commons page
+
+	public AbstractPage clickToDynamicPage(WebDriver driver, String pageName) {
+
+		waitForElementClickable(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
+		if (pageName.equals("Pages")) {
+			return PageGeneratorManager.getPagesPage(driver);
+		} else if (pageName.equals("Posts")) {
+			return PageGeneratorManager.getPostsPage(driver);
+		} else if (pageName.equals("Media")) {
+			return PageGeneratorManager.getMediaPage(driver);
+		} else {
+			return PageGeneratorManager.getDashboardPage(driver);
+		}
+
+	}
+
+	// 2. Apply cho những app nhiều common pages
+	public void clickToDynamicPages(WebDriver driver, String pageName) {
+
+		waitForElementClickable(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
+
+	}
+
 	private Select select;
 	private Actions action;
 	private WebElement element;
-	private long longTimeout = 30;
 	private List<WebElement> elements;
 	private WebDriverWait explicitWait;
 	private JavascriptExecutor jsExecutor;
