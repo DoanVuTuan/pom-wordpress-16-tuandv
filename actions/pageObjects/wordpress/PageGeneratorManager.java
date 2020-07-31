@@ -2,7 +2,7 @@ package pageObjects.wordpress;
 
 import org.openqa.selenium.WebDriver;
 
-import pageFactory.RegisterPageObject;
+
 
 
 public class PageGeneratorManager {

@@ -151,6 +151,12 @@ public abstract class AbstractPage {
 		element.sendKeys(value);
 	}
 
+	public void sendkeyToElement(WebDriver driver, String locator, String value, String... values) {
+		element = findElementByXpath(driver, castToObject(locator, values));
+		element.clear();
+		element.sendKeys(value);
+	}
+	
 	public String getElementAttribute(WebDriver driver, String locator, String attributeName) {
 		return findElementByXpath(driver, locator).getAttribute(attributeName);
 	}
@@ -215,6 +221,12 @@ public abstract class AbstractPage {
 		elements = findElementsByXpath(driver, locator);
 		return elements.size();
 	}
+	
+	public int countElementNumber(WebDriver driver, String locator, String... values) {
+
+		elements = findElementsByXpath(driver, castToObject(locator, values));
+		return elements.size();
+	}
 
 	public void checkToCheckBox(WebDriver driver, String locator) {
 		element = findElementByXpath(driver, locator);
@@ -272,6 +284,11 @@ public abstract class AbstractPage {
 	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key) {
 		action = new Actions(driver);
 		action.sendKeys(findElementByXpath(driver, locator), key).perform();
+	}
+	
+	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key, String... values) {
+		action = new Actions(driver);
+		action.sendKeys(findElementByXpath(driver, castToObject(locator, values)), key).perform();
 	}
 
 	public Object executeForBrowser(WebDriver driver, String javaSript) {

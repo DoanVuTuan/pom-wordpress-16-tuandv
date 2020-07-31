@@ -18,11 +18,11 @@ public abstract class AbstractTest {
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 		} else if (browserName.equalsIgnoreCase("chrome")) {
-//			System.setProperty("webdriver.chrome.driver", ".\\browserDriver\\chromedriver83.exe");
+			
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 		} else if (browserName.equalsIgnoreCase("edge")) {
-//			System.setProperty("webdriver.edge.driver", ".\\browserDriver\\msedgedriver83.0.478.58.exe");
+
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 		} else {
@@ -31,6 +31,28 @@ public abstract class AbstractTest {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get(GlobalConstants.WORDPRESS_URL);
+		return driver;
+	}
+	
+	
+	public WebDriver getBrowserDriver(String browserName,String appURL) {
+		if (browserName.equalsIgnoreCase("firefox")) {
+			WebDriverManager.firefoxdriver().setup();
+			driver = new FirefoxDriver();
+		} else if (browserName.equalsIgnoreCase("chrome")) {
+			
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+		} else if (browserName.equalsIgnoreCase("edge")) {
+
+			WebDriverManager.edgedriver().setup();
+			driver = new EdgeDriver();
+		} else {
+			System.out.println("Please select browser!");
+		}
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get(appURL);
 		return driver;
 	}
 	
