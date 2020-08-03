@@ -12,6 +12,11 @@ public class MediaPageObject extends AbstractPage {
 	public MediaPageObject(WebDriver mapDriver) {
 		driver = mapDriver;
 	}
+	public void clickToAddNewButton() {
+		waitForElementClickable(driver, MediaPageUI.ADD_NEW_BUTTON);
+		clickToElement(driver, MediaPageUI.ADD_NEW_BUTTON);
+	}
+
 
 
 	

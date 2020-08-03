@@ -4,7 +4,7 @@
 	<test name="Run on Chrome">
 		<parameter name="browser" value="firefox"></parameter>
 		<classes>
-			<class name="com.wordpress.login.Login_08_Dynamic_Loacator_Rest_Param" />
+			<class name="com.wordpress.login.Login_09_Upload_Multiple_Files" />
 		</classes>
 	</test> 
 

@@ -1,5 +1,6 @@
 package commons;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -156,7 +157,7 @@ public abstract class AbstractPage {
 		element.clear();
 		element.sendKeys(value);
 	}
-	
+
 	public String getElementAttribute(WebDriver driver, String locator, String attributeName) {
 		return findElementByXpath(driver, locator).getAttribute(attributeName);
 	}
@@ -221,7 +222,7 @@ public abstract class AbstractPage {
 		elements = findElementsByXpath(driver, locator);
 		return elements.size();
 	}
-	
+
 	public int countElementNumber(WebDriver driver, String locator, String... values) {
 
 		elements = findElementsByXpath(driver, castToObject(locator, values));
@@ -285,7 +286,7 @@ public abstract class AbstractPage {
 		action = new Actions(driver);
 		action.sendKeys(findElementByXpath(driver, locator), key).perform();
 	}
-	
+
 	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key, String... values) {
 		action = new Actions(driver);
 		action.sendKeys(findElementByXpath(driver, castToObject(locator, values)), key).perform();
@@ -353,6 +354,13 @@ public abstract class AbstractPage {
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator)));
 	}
 
+	
+	public void waitForElementsVisible(WebDriver driver, String locator) {
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(locator)));
+	}
+	
+	
 	public void waitForElementVisible(WebDriver driver, String locator, String... values) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(castToObject(locator, values))));
@@ -363,6 +371,13 @@ public abstract class AbstractPage {
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(locator)));
 	}
 
+	public void waitForAllElementsInisible(WebDriver driver, String locator) {
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+
+		elements = findElementsByXpath(driver, locator);
+		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
+	}
+
 	public void waitForElementClickable(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(locator)));
@@ -371,6 +386,64 @@ public abstract class AbstractPage {
 	public void waitForElementClickable(WebDriver driver, String locator, String... values) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(castToObject(locator, values))));
+	}
+
+	public void uploadMultipleFiles(WebDriver driver, String... fileNames) {
+		String fullFileName = "";
+		for (String file : fileNames) {
+			fullFileName = fullFileName + GlobalConstants.UPLOAD_FOLDER + file + "\n";
+		}
+		fullFileName = fullFileName.trim();
+		sendkeyToElement(driver, AbstractPageUI.UPLOAD_FILE_TYPE, fullFileName);
+	}
+
+	public boolean areFileUplaodedDisplayed(WebDriver driver, String... fileNames) {
+		boolean status = false;
+		int number = fileNames.length;
+
+		waitForAllElementsInisible(driver, AbstractPageUI.MEDIA_PROGRESS_BAR_ICON);
+		waitForElementsVisible(driver, AbstractPageUI.ALL_UPLOADED_IMG);
+		elements = findElementsByXpath(driver, AbstractPageUI.ALL_UPLOADED_IMG);
+		
+
+		// ArrayList chứa những giá trị này
+		List<String> imageValues = new ArrayList<String>();
+
+		// Lấy ra number = fileNames.length (getAttribute("src") của số lượng ảnh đã truyền vào)
+		int i = 0;
+		for (WebElement image : elements) {
+			System.out.println(image.getAttribute("src"));
+			imageValues.add(image.getAttribute("src"));
+			i++;
+			if (i == number) {
+				break;
+			}
+		}
+
+		// Verify file name matching
+
+		for (String fileName : fileNames) {
+			// tách chuỗi của tên ảnh dựa vào dấu . --> kia-seltos.jpg
+			String[] files = fileName.split("\\.");
+
+			// Lấy phần tử đầu tiên --> kia-seltos
+			fileName = files[0].toLowerCase();
+
+			for (i = 0; i < imageValues.size(); i++) {
+				if (!imageValues.get(i).contains(fileName)) {
+
+					status = false;
+					if (i == imageValues.size() - 1) {
+						return status;
+					}
+				} else {
+					status = true;
+					break;
+				}
+			}
+		}
+		return status;
+
 	}
 
 	// Common page --> Open page
