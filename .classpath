@@ -16,7 +16,7 @@
 	<classpathentry kind="lib" path="driverManagerLib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="lib" path="driverManagerLib/webdrivermanager-3.7.1.jar"/>
 	<classpathentry kind="lib" path="libraries/selenium-server-standalone-3.141.59.jar"/>
-	<classpathentry kind="lib" path="libraries/testng-6.14.3.jar"/>
+	<classpathentry kind="lib" path="libraries/testng-6.14.3.jar" sourcepath="C:/Users/Tuan/AppData/Local/Temp/.org.sf.feeling.decompiler1596641921650/source/testng-6.14.3-sources.jar"/>
 	<classpathentry kind="lib" path="driverManagerLib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="driverManagerLib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="driverManagerLib/httpcore-4.4.10.jar"/>

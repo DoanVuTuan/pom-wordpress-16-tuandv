@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Wordpress" parallel="false">
+	<listeners>
+		<listener class-name="commons.MethodListener" />
+	</listeners>
 
 	<test name="Run on Chrome">
 		<parameter name="browser" value="firefox"></parameter>
 		<classes>
-			<class name="com.wordpress.login.Login_10_Element_Undisplayed" />
+			<class name="com.wordpress.login.Login_11_Assert_Verify" />
 		</classes>
-	</test> 
+	</test>
 
 
 
