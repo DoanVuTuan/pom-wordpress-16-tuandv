@@ -1,5 +1,6 @@
 package commons;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -63,5 +64,11 @@ public abstract class AbstractTest {
 	public int randomNumber() {
 		Random rand = new Random();
 		return rand.nextInt(999999);
+	}
+	
+	public Date getDateTimeNow() {
+		Date date = new Date();
+		return date;
+		
 	}
 }

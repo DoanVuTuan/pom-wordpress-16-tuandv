@@ -1,12 +1,15 @@
 package commons;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -244,11 +247,68 @@ public abstract class AbstractPage {
 	}
 
 	public boolean isElementDisplayed(WebDriver driver, String locator) {
-		return findElementByXpath(driver, locator).isDisplayed();
+		try {
+			return findElementByXpath(driver, locator).isDisplayed();
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 	public boolean isElementDisplayed(WebDriver driver, String locator, String... values) {
 		return findElementByXpath(driver, castToObject(locator, values)).isDisplayed();
+	}
+
+	public void overrideGlobalTimeout(WebDriver driver, long timeout) {
+		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+
+	}
+
+	public boolean isElementUndisplayed(WebDriver driver, String locator) {
+		overrideGlobalTimeout(driver, GlobalConstants.SHORT_TIMEOUT);
+		elements = findElementsByXpath(driver, locator);
+
+		if (elements.size() == 0) {
+			System.out.println("Element not in DOM");
+			System.out.println("End time = " + new Date().toString());
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return true;
+		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			System.out.println("Element in DOM but not visible");
+			System.out.println("End time = " + new Date().toString());
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return true;
+		} else {
+			System.out.println("Element in DOM and visible");
+			System.out.println("End time = " + new Date().toString());
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return false;
+		}
+
+	}
+	
+	public boolean isElementUndisplayed(WebDriver driver, String locator,String... values) {
+		overrideGlobalTimeout(driver, GlobalConstants.SHORT_TIMEOUT);
+		elements = findElementsByXpath(driver, castToObject(locator, values));
+
+		if (elements.size() == 0) {
+			System.out.println("Element not in DOM");
+			System.out.println("End time = " + new Date().toString());
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return true;
+		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			System.out.println("Element in DOM but not visible");
+			System.out.println("End time = " + new Date().toString());
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return true;
+		} else {
+			System.out.println("Element in DOM and visible");
+			System.out.println("End time = " + new Date().toString());
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return false;
+		}
+
 	}
 
 	public boolean isElementEnable(WebDriver driver, String locator) {
@@ -354,13 +414,11 @@ public abstract class AbstractPage {
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator)));
 	}
 
-	
 	public void waitForElementsVisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(locator)));
 	}
-	
-	
+
 	public void waitForElementVisible(WebDriver driver, String locator, String... values) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(castToObject(locator, values))));
@@ -404,7 +462,6 @@ public abstract class AbstractPage {
 		waitForAllElementsInisible(driver, AbstractPageUI.MEDIA_PROGRESS_BAR_ICON);
 		waitForElementsVisible(driver, AbstractPageUI.ALL_UPLOADED_IMG);
 		elements = findElementsByXpath(driver, AbstractPageUI.ALL_UPLOADED_IMG);
-		
 
 		// ArrayList chứa những giá trị này
 		List<String> imageValues = new ArrayList<String>();
