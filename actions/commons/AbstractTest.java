@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -15,6 +17,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public abstract class AbstractTest {
 	private WebDriver driver;
+	
+	//Chỉ cho class nào kế thừa AbstractTest mới dùng được
+	protected final Log log;
+	// Constructor : khởi tạo log ra đầu tiên khi gọi đến AbstractTest
+	protected AbstractTest() {
+		log = LogFactory.getLog(getClass());
+	}
 
 	protected WebDriver getBrowserDriver(String browserName) {
 		if (browserName.equalsIgnoreCase("firefox")) {
@@ -58,13 +67,35 @@ public abstract class AbstractTest {
 		return driver;
 	}
 
+	
+
+	protected void closeBrowser() {
+		driver.quit();
+	}
+
+	protected int randomNumber() {
+		Random rand = new Random();
+		return rand.nextInt(999999);
+	}
+
+	protected Date getDateTimeNow() {
+		Date date = new Date();
+		return date;
+
+	}
+	
 	private boolean checkTrue(boolean condition) {
 		boolean pass = true;
 		try {
-
+			if (condition == true) {
+				log.info(" -------------------------- PASSED -------------------------- ");
+			} else {
+				log.info(" -------------------------- FAILED -------------------------- ");
+			}
 			Assert.assertTrue(condition);
 		} catch (Throwable e) {
 			pass = false;
+
 			// Add lỗi vào ReportNG
 			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
 			Reporter.getCurrentTestResult().setThrowable(e);
@@ -79,7 +110,11 @@ public abstract class AbstractTest {
 	private boolean checkFailed(boolean condition) {
 		boolean pass = true;
 		try {
-
+			if (condition == false) {
+				log.info(" -------------------------- PASSED -------------------------- ");
+			} else {
+				log.info(" -------------------------- FAILED -------------------------- ");
+			}
 			Assert.assertFalse(condition);
 		} catch (Throwable e) {
 			pass = false;
@@ -97,10 +132,10 @@ public abstract class AbstractTest {
 		boolean pass = true;
 		try {
 			Assert.assertEquals(actual, expected);
-
+			log.info(" -------------------------- PASSED -------------------------- ");
 		} catch (Throwable e) {
 			pass = false;
-
+			log.info(" -------------------------- FAILED -------------------------- ");
 			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
 			Reporter.getCurrentTestResult().setThrowable(e);
 		}
@@ -109,20 +144,5 @@ public abstract class AbstractTest {
 
 	protected boolean verifyEquals(Object actual, Object expected) {
 		return checkEquals(actual, expected);
-	}
-
-	protected void closeBrowser() {
-		driver.quit();
-	}
-
-	protected int randomNumber() {
-		Random rand = new Random();
-		return rand.nextInt(999999);
-	}
-
-	protected Date getDateTimeNow() {
-		Date date = new Date();
-		return date;
-
 	}
 }

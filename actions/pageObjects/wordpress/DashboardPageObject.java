@@ -5,6 +5,7 @@ import java.util.Date;
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
+import commons.GlobalConstants;
 import pageUI.wordpress.DashboardPageUI;
 
 public class DashboardPageObject extends AbstractPage {
@@ -20,9 +21,10 @@ public class DashboardPageObject extends AbstractPage {
 	}
 
 	public void clickToScreenOption() {
-		waitForElementVisible(driver, DashboardPageUI.SCREEN_OPTION_BUTTON);
+		sleepInSeconds(GlobalConstants.SHORT_TIMEOUT);
+		waitForElementClickable(driver, DashboardPageUI.SCREEN_OPTION_BUTTON);
 		clickToElement(driver, DashboardPageUI.SCREEN_OPTION_BUTTON);
-		sleepInSeconds(2);
+		sleepInSeconds(GlobalConstants.SHORT_TIMEOUT);
 		
 	}
 

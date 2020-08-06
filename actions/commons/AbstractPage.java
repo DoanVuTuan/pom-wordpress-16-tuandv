@@ -287,8 +287,8 @@ public abstract class AbstractPage {
 		}
 
 	}
-	
-	public boolean isElementUndisplayed(WebDriver driver, String locator,String... values) {
+
+	public boolean isElementUndisplayed(WebDriver driver, String locator, String... values) {
 		overrideGlobalTimeout(driver, GlobalConstants.SHORT_TIMEOUT);
 		elements = findElementsByXpath(driver, castToObject(locator, values));
 

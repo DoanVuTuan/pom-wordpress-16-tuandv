@@ -2,12 +2,19 @@
 <suite name="Wordpress" parallel="false">
 	<listeners>
 		<listener class-name="commons.MethodListener" />
+		<!--Extent v2 -->
+		<!-- <listener class-name="reportConfig.ExtentReportListener" /> -->
+		<!--Extent v3 -->
+		<listener class-name="reportConfig.ExtentTestListener" />
+
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
 	</listeners>
 
 	<test name="Run on Chrome">
 		<parameter name="browser" value="firefox"></parameter>
 		<classes>
-			<class name="com.wordpress.login.Login_11_Assert_Verify" />
+			<class name="com.wordpress.login.Login_12_Log_Report_HTML" />
 		</classes>
 	</test>
 

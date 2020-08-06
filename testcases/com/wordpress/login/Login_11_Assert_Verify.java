@@ -55,8 +55,8 @@ public class Login_11_Assert_Verify extends AbstractTest {
 		// input[@id='dashboard_activity-hide']
 		// Click to Screen option : close/de-active
 		dashboardPage.clickToScreenOption();
-		verifyTrue(dashboardPage.isActivityCheckboxDisplayed()); //>> failed
-		verifyTrue(dashboardPage.isAllPostsSubMenuDisplayed());//>> failed
+		verifyFalse(dashboardPage.isActivityCheckboxDisplayed()); //>> failed
+		verifyFalse(dashboardPage.isAllPostsSubMenuDisplayed());//>> failed
 		// a[text()='All Posts']
 	}
 
