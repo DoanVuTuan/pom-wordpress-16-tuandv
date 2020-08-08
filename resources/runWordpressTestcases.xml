@@ -1,18 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
 <suite name="Wordpress" parallel="false">
+
 	<listeners>
 		<listener class-name="commons.MethodListener" />
-		<!--Extent v2 -->
-		<!-- <listener class-name="reportConfig.ExtentReportListener" /> -->
-		<!--Extent v3 -->
-		<listener class-name="reportConfig.ExtentTestListener" />
-
 		<listener class-name="org.uncommons.reportng.HTMLReporter" />
 		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+		<!--Extent v3 -->
+	<!-- <listener class-name="reportConfig.ExtentTestListener" /> -->
+		<!--Extent v4 -->
+		<listener class-name="reportConfig.ExtentListener" />
 	</listeners>
 
 	<test name="Run on Chrome">
-		<parameter name="browser" value="firefox"></parameter>
+		<parameter name="browser" value="chrome"></parameter>
 		<classes>
 			<class name="com.wordpress.login.Login_12_Log_Report_HTML" />
 		</classes>

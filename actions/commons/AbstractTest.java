@@ -20,6 +20,7 @@ public abstract class AbstractTest {
 	
 	//Chỉ cho class nào kế thừa AbstractTest mới dùng được
 	protected final Log log;
+	
 	// Constructor : khởi tạo log ra đầu tiên khi gọi đến AbstractTest
 	protected AbstractTest() {
 		log = LogFactory.getLog(getClass());

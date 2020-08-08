@@ -270,3 +270,95 @@
 2020-08-06 13:56:03,416 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Verify 'Plans Menu' undisplayed
 2020-08-06 13:56:08,442 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
 2020-08-06 13:56:08,443 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Post-condition : Close browser
+2020-08-06 14:50:13,017 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Pre-condition : Step 01 - Navigate to login page
+2020-08-06 14:50:13,031 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 01 - Input to 'Email' textbox 
+2020-08-06 14:50:13,203 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 02 - Click to 'Continue' button 
+2020-08-06 14:50:13,472 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 03 - Input to 'Password' textbox 
+2020-08-06 14:50:14,106 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 04 - Navigate to Dashboard page
+2020-08-06 14:50:14,361 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 01 - Verify header text displayed
+2020-08-06 14:50:19,116 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:50:19,121 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Click to Screen option
+2020-08-06 14:50:29,414 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 03 - Verify 'Activity' checkbox is displayed
+2020-08-06 14:50:29,442 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:50:29,442 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 04 - Click to Screen option 
+2020-08-06 14:50:39,714 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 05 - Verify 'Activity Checkbox' undisplayed
+2020-08-06 14:50:39,740 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:50:39,740 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 06 - Verify 'All Posts menu ' undisplayed
+2020-08-06 14:50:39,766 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:50:39,769 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Verify 'Plans Menu' undisplayed
+2020-08-06 14:50:44,798 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:50:44,799 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Post-condition : Close browser
+2020-08-06 14:53:46,768 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Pre-condition : Step 01 - Navigate to login page
+2020-08-06 14:53:46,781 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 01 - Input to 'Email' textbox 
+2020-08-06 14:53:46,952 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 02 - Click to 'Continue' button 
+2020-08-06 14:53:47,227 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 03 - Input to 'Password' textbox 
+2020-08-06 14:53:47,848 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 04 - Navigate to Dashboard page
+2020-08-06 14:53:48,104 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 01 - Verify header text displayed
+2020-08-06 14:53:51,904 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:53:51,910 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Click to Screen option
+2020-08-06 14:54:02,200 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 03 - Verify 'Activity' checkbox is displayed
+2020-08-06 14:54:02,236 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:54:02,236 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 04 - Click to Screen option 
+2020-08-06 14:54:12,507 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 05 - Verify 'Activity Checkbox' undisplayed
+2020-08-06 14:54:12,532 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:54:12,532 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 06 - Verify 'All Posts menu ' undisplayed
+2020-08-06 14:54:12,557 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:54:12,559 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Verify 'Plans Menu' undisplayed
+2020-08-06 14:54:17,588 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:54:17,590 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Post-condition : Close browser
+2020-08-06 14:57:26,470 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Pre-condition : Step 01 - Navigate to login page
+2020-08-06 14:57:26,485 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 01 - Input to 'Email' textbox 
+2020-08-06 14:57:26,650 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 02 - Click to 'Continue' button 
+2020-08-06 14:57:26,918 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 03 - Input to 'Password' textbox 
+2020-08-06 14:57:27,556 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 04 - Navigate to Dashboard page
+2020-08-06 14:57:27,830 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 01 - Verify header text displayed
+2020-08-06 14:57:34,548 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:57:34,555 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Click to Screen option
+2020-08-06 14:57:44,840 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 03 - Verify 'Activity' checkbox is displayed
+2020-08-06 14:57:44,868 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:57:44,868 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 04 - Click to Screen option 
+2020-08-06 14:57:55,134 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 05 - Verify 'Activity Checkbox' undisplayed
+2020-08-06 14:57:55,173 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:57:55,173 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 06 - Verify 'All Posts menu ' undisplayed
+2020-08-06 14:57:55,197 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:57:55,200 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Verify 'Plans Menu' undisplayed
+2020-08-06 14:58:00,224 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-06 14:58:00,225 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Post-condition : Close browser
+2020-08-07 12:31:07,053 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Pre-condition : Step 01 - Navigate to login page
+2020-08-07 12:34:30,918 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Pre-condition : Step 01 - Navigate to login page
+2020-08-09 00:33:33,242 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Pre-condition : Step 01 - Navigate to login page
+2020-08-09 00:33:33,259 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 01 - Input to 'Email' textbox 
+2020-08-09 00:33:33,510 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 02 - Click to 'Continue' button 
+2020-08-09 00:33:33,624 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 03 - Input to 'Password' textbox 
+2020-08-09 00:33:34,901 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 04 - Navigate to Dashboard page
+2020-08-09 00:33:34,982 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 01 - Verify header text displayed
+2020-08-09 00:33:38,893 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:33:38,902 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Click to Screen option
+2020-08-09 00:33:49,115 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 03 - Verify 'Activity' checkbox is displayed
+2020-08-09 00:33:49,160 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:33:49,160 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 04 - Click to Screen option 
+2020-08-09 00:33:59,317 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 05 - Verify 'Activity Checkbox' undisplayed
+2020-08-09 00:33:59,380 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:33:59,380 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 06 - Verify 'All Posts menu ' undisplayed
+2020-08-09 00:33:59,438 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:33:59,440 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Verify 'Plans Menu' undisplayed
+2020-08-09 00:34:04,502 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:34:04,504 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Post-condition : Close browser
+2020-08-09 00:41:20,506 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Pre-condition : Step 01 - Navigate to login page
+2020-08-09 00:41:20,520 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 01 - Input to 'Email' textbox 
+2020-08-09 00:41:20,760 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 02 - Click to 'Continue' button 
+2020-08-09 00:41:20,901 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 03 - Input to 'Password' textbox 
+2020-08-09 00:41:21,618 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Login Page : Step 04 - Navigate to Dashboard page
+2020-08-09 00:41:21,704 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 01 - Verify header text displayed
+2020-08-09 00:41:24,736 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:41:24,740 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Click to Screen option
+2020-08-09 00:41:34,945 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 03 - Verify 'Activity' checkbox is displayed
+2020-08-09 00:41:35,006 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:41:35,006 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 04 - Click to Screen option 
+2020-08-09 00:41:45,169 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 05 - Verify 'Activity Checkbox' undisplayed
+2020-08-09 00:41:45,223 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:41:45,223 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 06 - Verify 'All Posts menu ' undisplayed
+2020-08-09 00:41:45,272 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:41:45,274 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Verify 'Plans Menu' undisplayed
+2020-08-09 00:41:50,365 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
+2020-08-09 00:41:50,366 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Post-condition : Close browser

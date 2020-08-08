@@ -40,6 +40,7 @@ public class MethodListener implements IInvokedMethodListener {
 					for (int failure = 0; failure < size - 1; failure++) {
 						message.append("Failure ").append(failure + 1).append(" of ").append(size).append("\n");
 						message.append(Utils.stackTrace(failures.get(failure), false)[1]).append("\n");
+						
 					}
 					Throwable last = failures.get(size - 1);
 					message.append("Failure ").append(size).append(" of ").append(size).append("\n");
