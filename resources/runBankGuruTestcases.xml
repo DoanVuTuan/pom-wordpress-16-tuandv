@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Bank Guru" parallel="false">
 
-  <test name="Run on Firefox browsers">
-   
-    <classes>
-      <class name="com.bankguru.login.Login_02_RegisterAndLogin_PageFactory"/>
-    </classes>
-    
-  </test> 
-  
+	<test name="Run on Firefox browsers">
+		<parameter name="browser" value="firefox"></parameter>
+		<classes>
+
+			<class name="com.bankguru.user.User_01_Validate_User" />
+			<class name="com.bankguru.user.User_02_Search_User" />
+			<class name="com.bankguru.user.User_03_Edit_User" />
+			<class name="com.bankguru.common.Common_01_Register" />
+		</classes>
+
+	</test>
+
 </suite> 
