@@ -12,9 +12,10 @@ public class LoginPageObject extends AbstractPage{
 		driver = mapDriver;
 	
 	}
-	public void clickToHereLink() {
+	public RegisterPageObject clickToHereLink() {
 		waitForElementClickable(driver, LoginPageUI.HERE_LINK);
 		clickToElement(driver, LoginPageUI.HERE_LINK);
+		return PageGeneratorManager.getRegisterPage(driver);
 		
 	}
 	public void inputToUserIDTextbox(String userIDValue) {

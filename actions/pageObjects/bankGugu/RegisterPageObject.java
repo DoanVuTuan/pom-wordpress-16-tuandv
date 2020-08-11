@@ -36,8 +36,9 @@ public class RegisterPageObject extends AbstractPage {
 		
 	}
 
-	public void openLoginPage(String loginPageUrl) {
+	public LoginPageObject openLoginPage(String loginPageUrl) {
 		openURL(driver, loginPageUrl);
+		return PageGeneratorManager.getLoginPage(driver);
 		
 	}
 }

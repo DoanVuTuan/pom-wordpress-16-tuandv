@@ -2,12 +2,15 @@ package com.bankguru.login;
 
 import org.testng.annotations.Test;
 
-import pageFactory.HomePageObject;
-import pageFactory.LoginPageObject;
-import pageFactory.RegisterPageObject;
-import pageFactory.PageGeneratorManager;
+import commons.AbstractPage;
+import commons.AbstractTest;
+import pageObjects.bankGugu.HomePageObject;
+import pageObjects.bankGugu.LoginPageObject;
+import pageObjects.bankGugu.PageGeneratorManager;
+import pageObjects.bankGugu.RegisterPageObject;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +20,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Login_02_RegisterAndLogin_PageFactory {
+public class Login_03_Dynamic_Page_Element extends AbstractTest {
 	WebDriver driver;
 	LoginPageObject loginPage;
 	HomePageObject homePage;
@@ -25,16 +28,11 @@ public class Login_02_RegisterAndLogin_PageFactory {
 
 	String userIDValue, passwordvalue, loginPageUrl;
 
+	@Parameters("browser")
 	@BeforeClass
-	public void beforeClass() {
-		driver = new FirefoxDriver();
-
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		// Open url
-		driver.get("http://demo.guru99.com/v4/");
+	public void beforeClass(String browserName) {
+		driver = getBrowserDriver(browserName, "http://demo.guru99.com/v4/");
 		// Khởi tạo login page
-		//loginPage = new LoginPageObject(driver);
 		loginPage = PageGeneratorManager.getLoginPage(driver);
 		loginPageUrl = loginPage.getLoginPageUrl();
 	}
@@ -43,9 +41,8 @@ public class Login_02_RegisterAndLogin_PageFactory {
 	public void TC_01_Register() {
 
 		// navigate to register page
-		registerPage = loginPage.clickToHereLink();
-		// Khởi tạo register page
-
+		loginPage.clickToHereLink();
+		
 		registerPage.inputToEmailTextbox("tuandv" + randomNumber() + "@gmail.com");
 		registerPage.clickToSubmitButton();
 
@@ -55,6 +52,7 @@ public class Login_02_RegisterAndLogin_PageFactory {
 		// Navigate to Login page
 		loginPage = registerPage.openLoginPage(loginPageUrl);
 
+	
 	}
 
 	@Test
@@ -63,7 +61,10 @@ public class Login_02_RegisterAndLogin_PageFactory {
 
 		loginPage.inputToPasswordTextbox(passwordvalue);
 
-		homePage = loginPage.clickToLoginButton();
+		loginPage.clickToLoginButton();
+
+		homePage = new HomePageObject(driver);
+
 		Assert.assertTrue(homePage.isWelcomeMessageDisplayed());
 
 	}

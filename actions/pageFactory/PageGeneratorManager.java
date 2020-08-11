@@ -1,10 +1,8 @@
-package pageObjects.bankGugu;
+package pageFactory;
 
 import org.openqa.selenium.WebDriver;
 
-import pageObjects.bankGugu.HomePageObject;
-import pageObjects.bankGugu.LoginPageObject;
-import pageObjects.bankGugu.RegisterPageObject;
+
 
 public class PageGeneratorManager {
 	
