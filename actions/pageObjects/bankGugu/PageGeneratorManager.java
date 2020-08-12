@@ -22,5 +22,15 @@ public class PageGeneratorManager {
 		return new HomePageObject(driver);
 		
 	}
+	
+	public static NewCustomerPageObject getNewCustomerPage(WebDriver driver) {
+		return new NewCustomerPageObject(driver);
+		
+	}
+	
+	public static EditCustomerPageObject getEditCustomerPage(WebDriver driver) {
+		return new EditCustomerPageObject(driver);
+		
+	}
 
 }

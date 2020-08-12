@@ -5,10 +5,8 @@
 		<parameter name="browser" value="firefox"></parameter>
 		<classes>
 
-			<class name="com.bankguru.user.User_01_Validate_User" />
-			<class name="com.bankguru.user.User_02_Search_User" />
-			<class name="com.bankguru.user.User_03_Edit_User" />
-			<class name="com.bankguru.common.Common_01_Register" />
+			<class name="com.bankguru.login.Login_03_Dynamic_Page_Element" />
+			
 		</classes>
 
 	</test>

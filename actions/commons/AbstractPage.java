@@ -21,6 +21,8 @@ import pageObjects.wordpress.MediaPageObject;
 import pageObjects.wordpress.PageGeneratorManager;
 import pageObjects.wordpress.PagesPageObject;
 import pageObjects.wordpress.PostsPageObject;
+import pageUI.bankGugu.AbstractBankPageUI;
+import pageUI.wordpress.AbstractWordpressPageUI;
 
 public abstract class AbstractPage {
 
@@ -167,6 +169,10 @@ public abstract class AbstractPage {
 
 	public String getElementText(WebDriver driver, String locator) {
 		return findElementByXpath(driver, locator).getText().trim();
+	}
+	
+	public String getElementText(WebDriver driver, String locator, String... values ) {
+		return findElementByXpath(driver, castToObject(locator, values)).getText().trim();
 	}
 
 	public void selectValueInDropdown(WebDriver driver, String locator, String value) {
@@ -399,6 +405,11 @@ public abstract class AbstractPage {
 		jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", findElementByXpath(driver, locator));
 	}
 
+	public void removeAttributeInDOM(WebDriver driver, String locator, String attributeRemove, String... values) {
+		jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", findElementByXpath(driver,castToObject(locator, values)));
+	}
+	
 	public boolean isImageLoaded(WebDriver driver, String locator) {
 		jsExecutor = (JavascriptExecutor) driver;
 		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof arguments[0]" + ".naturalWidth !='undefined' && arguments[0]" + ".naturalWidth > 0", findElementByXpath(driver, locator));
@@ -452,16 +463,16 @@ public abstract class AbstractPage {
 			fullFileName = fullFileName + GlobalConstants.UPLOAD_FOLDER + file + "\n";
 		}
 		fullFileName = fullFileName.trim();
-		sendkeyToElement(driver, AbstractPageUI.UPLOAD_FILE_TYPE, fullFileName);
+		sendkeyToElement(driver, AbstractWordpressPageUI.UPLOAD_FILE_TYPE, fullFileName);
 	}
 
 	public boolean areFileUplaodedDisplayed(WebDriver driver, String... fileNames) {
 		boolean status = false;
 		int number = fileNames.length;
 
-		waitForAllElementsInisible(driver, AbstractPageUI.MEDIA_PROGRESS_BAR_ICON);
-		waitForElementsVisible(driver, AbstractPageUI.ALL_UPLOADED_IMG);
-		elements = findElementsByXpath(driver, AbstractPageUI.ALL_UPLOADED_IMG);
+		waitForAllElementsInisible(driver, AbstractWordpressPageUI.MEDIA_PROGRESS_BAR_ICON);
+		waitForElementsVisible(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
+		elements = findElementsByXpath(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
 
 		// ArrayList chứa những giá trị này
 		List<String> imageValues = new ArrayList<String>();
@@ -506,22 +517,22 @@ public abstract class AbstractPage {
 	// Common page --> Open page
 
 	public PostsPageObject clickToPostsMenu(WebDriver driver) {
-		waitForElementClickable(driver, AbstractPageUI.POSTS_LINK);
-		clickToElement(driver, AbstractPageUI.POSTS_LINK);
+		waitForElementClickable(driver, AbstractWordpressPageUI.POSTS_LINK);
+		clickToElement(driver, AbstractWordpressPageUI.POSTS_LINK);
 		return PageGeneratorManager.getPostsPage(driver);
 	}
 
 	public PagesPageObject clickToPagesMenu(WebDriver driver) {
-		waitForElementClickable(driver, AbstractPageUI.PAGES_LINK);
-		clickToElement(driver, AbstractPageUI.PAGES_LINK);
+		waitForElementClickable(driver, AbstractWordpressPageUI.PAGES_LINK);
+		clickToElement(driver, AbstractWordpressPageUI.PAGES_LINK);
 		return PageGeneratorManager.getPagesPage(driver);
 
 	}
 
 	public MediaPageObject clickToMediaMenu(WebDriver driver) {
 
-		waitForElementClickable(driver, AbstractPageUI.MEDIA_LINK);
-		clickToElement(driver, AbstractPageUI.MEDIA_LINK);
+		waitForElementClickable(driver, AbstractWordpressPageUI.MEDIA_LINK);
+		clickToElement(driver, AbstractWordpressPageUI.MEDIA_LINK);
 		return PageGeneratorManager.getMediaPage(driver);
 
 	}
@@ -531,8 +542,8 @@ public abstract class AbstractPage {
 
 	public AbstractPage clickToDynamicPage(WebDriver driver, String pageName) {
 
-		waitForElementClickable(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
-		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
+		waitForElementClickable(driver, AbstractWordpressPageUI.DYNAMIC_PAGE_LINK, pageName);
+		clickToElement(driver, AbstractWordpressPageUI.DYNAMIC_PAGE_LINK, pageName);
 		if (pageName.equals("Pages")) {
 			return PageGeneratorManager.getPagesPage(driver);
 		} else if (pageName.equals("Posts")) {
@@ -548,9 +559,49 @@ public abstract class AbstractPage {
 	// 2. Apply cho những app nhiều common pages
 	public void clickToDynamicPages(WebDriver driver, String pageName) {
 
-		waitForElementClickable(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
-		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
+		waitForElementClickable(driver, AbstractWordpressPageUI.DYNAMIC_PAGE_LINK, pageName);
+		clickToElement(driver, AbstractWordpressPageUI.DYNAMIC_PAGE_LINK, pageName);
 
+	}
+
+	/* Bank GURU Dynamic Page Component */
+	public void inputToDynamicTextbox(WebDriver driver, String nameAttributeValue, String inputValue) {
+		waitForElementVisible(driver, AbstractBankPageUI.DYNAMIC_TEXTBOX, nameAttributeValue);
+		if(nameAttributeValue.equals("dob")) {
+			removeAttributeInDOM(driver, AbstractBankPageUI.DYNAMIC_TEXTBOX, "type", nameAttributeValue);
+			sleepInSeconds(1);
+		}
+		sendkeyToElement(driver, AbstractBankPageUI.DYNAMIC_TEXTBOX, inputValue, nameAttributeValue);
+	}
+
+	public void inputToDynamicTextarea(WebDriver driver, String nameAttributeValue, String inputValue) {
+		waitForElementVisible(driver, AbstractBankPageUI.DYNAMIC_TEXTAREA, nameAttributeValue);
+		sendkeyToElement(driver, AbstractBankPageUI.DYNAMIC_TEXTAREA, inputValue, nameAttributeValue);
+	}
+
+	public void clickToDynamicButton(WebDriver driver, String buttonValue) {
+		waitForElementClickable(driver, AbstractBankPageUI.DYNAMIC_BUTTON, buttonValue);
+		clickToElement(driver, AbstractBankPageUI.DYNAMIC_BUTTON, buttonValue);
+	}
+
+	public void clickToDynamicRadioButton(WebDriver driver, String radioButtonValue) {
+		waitForElementClickable(driver, AbstractBankPageUI.DYNAMIC_RADIO_BUTTON, radioButtonValue);
+		clickToElement(driver, AbstractBankPageUI.DYNAMIC_RADIO_BUTTON, radioButtonValue);
+	}
+
+	public void clickToDynamicLink(WebDriver driver, String linkPageName) {
+		waitForElementClickable(driver, AbstractBankPageUI.DYNAMIC_LINK, linkPageName);
+		clickToElement(driver, AbstractBankPageUI.DYNAMIC_LINK, linkPageName);
+	}
+
+	public boolean isDynamicMEssageDisplayed(WebDriver driver, String msgText) {
+		waitForElementVisible(driver, AbstractBankPageUI.DYNAMIC_MESSAGE, msgText);
+		return isElementDisplayed(driver, AbstractBankPageUI.DYNAMIC_MESSAGE, msgText);
+	}
+
+	public String getDynamicValueByColumnName(WebDriver driver, String columnName) {
+		waitForElementVisible(driver, AbstractBankPageUI.DYNAMIC_VALUE_BY_COLUMN_NAME, columnName);
+		return getElementText(driver, AbstractBankPageUI.DYNAMIC_VALUE_BY_COLUMN_NAME, columnName);
 	}
 
 	private Select select;
