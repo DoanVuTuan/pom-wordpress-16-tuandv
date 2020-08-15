@@ -1,4 +1,4 @@
-package pageUI.wordpress;
+package pageUI.wordpress.admin;
 
 public class PagesPageUI {
 

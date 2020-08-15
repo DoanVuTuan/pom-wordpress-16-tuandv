@@ -4,12 +4,12 @@ import org.testng.annotations.Test;
 
 import commons.AbstractTest;
 import commons.GlobalConstants;
-import pageObjects.wordpress.DashboardPageObject;
-import pageObjects.wordpress.LoginPageObject;
-import pageObjects.wordpress.MediaPageObject;
-import pageObjects.wordpress.PageGeneratorManager;
-import pageObjects.wordpress.PagesPageObject;
-import pageObjects.wordpress.PostsPageObject;
+import commons.WordpressPageGeneratorManager;
+import pageObjects.wordpress.admin.DashboardPageObject;
+import pageObjects.wordpress.admin.LoginPageObject;
+import pageObjects.wordpress.admin.MediaPageObject;
+import pageObjects.wordpress.admin.PagesPageObject;
+import pageObjects.wordpress.admin.PostsPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -32,7 +32,7 @@ public class Login_11_Assert_Verify extends AbstractTest {
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
 		// Steep 01 - Mở URL --> chuyển qua login page
-		loginPage = PageGeneratorManager.getLoginPage(driver);
+		loginPage = WordpressPageGeneratorManager.getLoginAdminPage(driver);
 
 	}
 

@@ -3,9 +3,9 @@ package com.wordpress.login;
 import org.testng.annotations.Test;
 
 import commons.AbstractTest;
-import pageObjects.wordpress.DashboardPageObject;
-import pageObjects.wordpress.LoginPageObject;
-import pageObjects.wordpress.PageGeneratorManager;
+import commons.WordpressPageGeneratorManager;
+import pageObjects.wordpress.admin.DashboardPageObject;
+import pageObjects.wordpress.admin.LoginPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -21,7 +21,7 @@ public class Login_05_Multiple_Browsers_And_Parallel_Testing extends AbstractTes
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
-		loginPage = PageGeneratorManager.getLoginPage(driver);
+		loginPage = WordpressPageGeneratorManager.getLoginAdminPage(driver);
 	}
 
 	@Test

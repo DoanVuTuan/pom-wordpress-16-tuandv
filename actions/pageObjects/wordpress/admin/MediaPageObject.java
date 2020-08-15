@@ -1,10 +1,10 @@
-package pageObjects.wordpress;
+package pageObjects.wordpress.admin;
 
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
-import pageUI.wordpress.DashboardPageUI;
-import pageUI.wordpress.MediaPageUI;
+import pageUI.wordpress.admin.DashboardPageUI;
+import pageUI.wordpress.admin.MediaPageUI;
 
 public class MediaPageObject extends AbstractPage {
 

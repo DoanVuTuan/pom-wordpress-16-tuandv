@@ -1,4 +1,4 @@
-package pageObjects.wordpress;
+package pageObjects.wordpress.admin;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
 import commons.GlobalConstants;
-import pageUI.wordpress.DashboardPageUI;
+import pageUI.wordpress.admin.DashboardPageUI;
 
 public class DashboardPageObject extends AbstractPage {
 

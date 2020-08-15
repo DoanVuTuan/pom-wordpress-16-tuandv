@@ -362,3 +362,13 @@
 2020-08-09 00:41:45,274 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Dasboard Page : Step 02 - Verify 'Plans Menu' undisplayed
 2020-08-09 00:41:50,365 INFO  com.wordpress.login.Login_12_Log_Report_HTML -  -------------------------- PASSED -------------------------- 
 2020-08-09 00:41:50,366 INFO  com.wordpress.login.Login_12_Log_Report_HTML - Post-condition : Close browser
+2020-08-14 15:40:47,179 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Pre-condition : Step 01 - Navigate to login page
+2020-08-14 15:40:47,211 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 01 - Input to 'Email' textbox 
+2020-08-14 15:40:47,427 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 02 - Click to 'Continue' button 
+2020-08-14 15:40:47,540 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 03 - Input to 'Password' textbox 
+2020-08-14 15:40:48,259 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 04 - Navigate to Dashboard page
+2020-08-14 15:40:48,342 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Dasboard Page : Step 01 - Verify header text displayed
+2020-08-14 15:40:52,403 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete -  -------------------------- PASSED -------------------------- 
+2020-08-14 15:40:52,422 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Post-condition : Close browser
+2020-08-14 15:40:52,422 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - OS name = windows 10
+2020-08-14 15:40:53,271 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - ---------- QUIT BROWSER SUCCESS ----------

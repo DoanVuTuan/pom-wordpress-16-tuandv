@@ -1,4 +1,4 @@
-package pageUI.wordpress;
+package pageUI.wordpress.admin;
 
 public class AbstractWordpressPageUI {
 	public static final String PAGES_LINK = "//a[contains(@class,'menu-icon-page')]";

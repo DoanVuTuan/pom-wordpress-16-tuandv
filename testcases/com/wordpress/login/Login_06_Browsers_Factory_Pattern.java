@@ -4,9 +4,9 @@ import org.testng.annotations.Test;
 
 import browserFactory.BrowserDriverFactory;
 import browserFactory.DriverManager;
-import pageObjects.wordpress.DashboardPageObject;
-import pageObjects.wordpress.LoginPageObject;
-import pageObjects.wordpress.PageGeneratorManager;
+import commons.WordpressPageGeneratorManager;
+import pageObjects.wordpress.admin.DashboardPageObject;
+import pageObjects.wordpress.admin.LoginPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -28,7 +28,7 @@ public class Login_06_Browsers_Factory_Pattern  {
 	public void beforeClass(String browserName) {
 		driverManger = BrowserDriverFactory.getBrowserDriver(browserName);
 		driver = driverManger.getDriver();
-		loginPage = PageGeneratorManager.getLoginPage(driver);
+		loginPage = WordpressPageGeneratorManager.getLoginAdminPage(driver);
 	}
 
 	@Test

@@ -1,4 +1,4 @@
-package pageUI.wordpress;
+package pageUI.wordpress.admin;
 
 public class DashboardPageUI {
 	public static final String HEADER_TEXT = "//h1[(text()='Dashboard')]";

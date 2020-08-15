@@ -43,7 +43,7 @@ public abstract class AbstractTest {
 		}
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get(GlobalConstants.WORDPRESS_URL);
+		driver.get(GlobalConstants.ADMIN_WORDPRESS_URL);
 		return driver;
 	}
 

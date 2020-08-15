@@ -3,8 +3,8 @@ package com.wordpress.login;
 import org.testng.annotations.Test;
 
 import commons.AbstractPage;
-import pageObjects.wordpress.DashboardPageObject;
-import pageObjects.wordpress.LoginPageObject;
+import pageObjects.wordpress.admin.DashboardPageObject;
+import pageObjects.wordpress.admin.LoginPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;

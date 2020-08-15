@@ -1,7 +1,8 @@
 package commons;
 
 public class GlobalConstants {
-	public static String WORDPRESS_URL = "https://automationfc.wordpress.com/wp-admin";
+	public static String ADMIN_WORDPRESS_URL = "https://automationfc.wordpress.com/wp-admin";
+	public static String USER_WORDPRESS_URL = "https://automationfc.wordpress.com";
 	public static String WORDPRESS_ID = "automationeditor";
 	public static String WORDPRESS_PWD = "automationfc";
 	

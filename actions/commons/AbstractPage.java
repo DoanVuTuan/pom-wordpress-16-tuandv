@@ -17,12 +17,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import pageObjects.wordpress.MediaPageObject;
-import pageObjects.wordpress.PageGeneratorManager;
-import pageObjects.wordpress.PagesPageObject;
-import pageObjects.wordpress.PostsPageObject;
+import pageObjects.wordpress.admin.DashboardPageObject;
+import pageObjects.wordpress.admin.MediaPageObject;
+import pageObjects.wordpress.admin.PagesPageObject;
+import pageObjects.wordpress.admin.PostsPageObject;
 import pageUI.bankGugu.AbstractBankPageUI;
-import pageUI.wordpress.AbstractWordpressPageUI;
+import pageUI.wordpress.admin.AbstractWordpressPageUI;
+import pageObjects.wordpress.user.HomePageObject;
+import pageObjects.wordpress.user.SearchResultsPageObject;
 
 public abstract class AbstractPage {
 
@@ -170,8 +172,8 @@ public abstract class AbstractPage {
 	public String getElementText(WebDriver driver, String locator) {
 		return findElementByXpath(driver, locator).getText().trim();
 	}
-	
-	public String getElementText(WebDriver driver, String locator, String... values ) {
+
+	public String getElementText(WebDriver driver, String locator, String... values) {
 		return findElementByXpath(driver, castToObject(locator, values)).getText().trim();
 	}
 
@@ -407,9 +409,9 @@ public abstract class AbstractPage {
 
 	public void removeAttributeInDOM(WebDriver driver, String locator, String attributeRemove, String... values) {
 		jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", findElementByXpath(driver,castToObject(locator, values)));
+		jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", findElementByXpath(driver, castToObject(locator, values)));
 	}
-	
+
 	public boolean isImageLoaded(WebDriver driver, String locator) {
 		jsExecutor = (JavascriptExecutor) driver;
 		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof arguments[0]" + ".naturalWidth !='undefined' && arguments[0]" + ".naturalWidth > 0", findElementByXpath(driver, locator));
@@ -519,13 +521,13 @@ public abstract class AbstractPage {
 	public PostsPageObject clickToPostsMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractWordpressPageUI.POSTS_LINK);
 		clickToElement(driver, AbstractWordpressPageUI.POSTS_LINK);
-		return PageGeneratorManager.getPostsPage(driver);
+		return WordpressPageGeneratorManager.getPostsAdminPage(driver);
 	}
 
 	public PagesPageObject clickToPagesMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractWordpressPageUI.PAGES_LINK);
 		clickToElement(driver, AbstractWordpressPageUI.PAGES_LINK);
-		return PageGeneratorManager.getPagesPage(driver);
+		return WordpressPageGeneratorManager.getPagesAdminPage(driver);
 
 	}
 
@@ -533,7 +535,7 @@ public abstract class AbstractPage {
 
 		waitForElementClickable(driver, AbstractWordpressPageUI.MEDIA_LINK);
 		clickToElement(driver, AbstractWordpressPageUI.MEDIA_LINK);
-		return PageGeneratorManager.getMediaPage(driver);
+		return WordpressPageGeneratorManager.getMediaAdminPage(driver);
 
 	}
 
@@ -545,19 +547,19 @@ public abstract class AbstractPage {
 		waitForElementClickable(driver, AbstractWordpressPageUI.DYNAMIC_PAGE_LINK, pageName);
 		clickToElement(driver, AbstractWordpressPageUI.DYNAMIC_PAGE_LINK, pageName);
 		if (pageName.equals("Pages")) {
-			return PageGeneratorManager.getPagesPage(driver);
+			return WordpressPageGeneratorManager.getPagesAdminPage(driver);
 		} else if (pageName.equals("Posts")) {
-			return PageGeneratorManager.getPostsPage(driver);
+			return WordpressPageGeneratorManager.getPostsAdminPage(driver);
 		} else if (pageName.equals("Media")) {
-			return PageGeneratorManager.getMediaPage(driver);
+			return WordpressPageGeneratorManager.getMediaAdminPage(driver);
 		} else {
-			return PageGeneratorManager.getDashboardPage(driver);
+			return WordpressPageGeneratorManager.getDashboardAdminPage(driver);
 		}
 
 	}
 
 	// 2. Apply cho những app nhiều common pages
-	public void clickToDynamicPages(WebDriver driver, String pageName) {
+	public void openMenuPageByName(WebDriver driver, String pageName) {
 
 		waitForElementClickable(driver, AbstractWordpressPageUI.DYNAMIC_PAGE_LINK, pageName);
 		clickToElement(driver, AbstractWordpressPageUI.DYNAMIC_PAGE_LINK, pageName);
@@ -567,7 +569,7 @@ public abstract class AbstractPage {
 	/* Bank GURU Dynamic Page Component */
 	public void inputToDynamicTextbox(WebDriver driver, String nameAttributeValue, String inputValue) {
 		waitForElementVisible(driver, AbstractBankPageUI.DYNAMIC_TEXTBOX, nameAttributeValue);
-		if(nameAttributeValue.equals("dob")) {
+		if (nameAttributeValue.equals("dob")) {
 			removeAttributeInDOM(driver, AbstractBankPageUI.DYNAMIC_TEXTBOX, "type", nameAttributeValue);
 			sleepInSeconds(1);
 		}
@@ -602,6 +604,34 @@ public abstract class AbstractPage {
 	public String getDynamicValueByColumnName(WebDriver driver, String columnName) {
 		waitForElementVisible(driver, AbstractBankPageUI.DYNAMIC_VALUE_BY_COLUMN_NAME, columnName);
 		return getElementText(driver, AbstractBankPageUI.DYNAMIC_VALUE_BY_COLUMN_NAME, columnName);
+	}
+
+	/* Wordpress component */
+
+	public HomePageObject openEndUserPage(WebDriver driver) {
+		openURL(driver, GlobalConstants.USER_WORDPRESS_URL);
+		return WordpressPageGeneratorManager.getHomeUserPage(driver);
+	}
+	
+	
+	public DashboardPageObject openAdminLoggedPage(WebDriver driver) {
+		openURL(driver, GlobalConstants.ADMIN_WORDPRESS_URL);
+		return WordpressPageGeneratorManager.getDashboardAdminPage(driver);
+	}
+	
+	public SearchResultsPageObject inputToSearchTextboxAtUserPage(WebDriver driver, String vallue) {
+		
+		//wait
+		//sendkey
+		//click search button
+		
+		return WordpressPageGeneratorManager.getSearchResultsUserPage(driver);
+		
+	}
+	
+	public boolean isSuccessMessageDisplayedWithValue(String string) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	private Select select;

@@ -27,7 +27,7 @@ public abstract class DriverManager {
 		
 		driver.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT,TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get(GlobalConstants.WORDPRESS_URL);
+		driver.get(GlobalConstants.ADMIN_WORDPRESS_URL);
 		return driver;
 
 	}

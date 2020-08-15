@@ -1,9 +1,10 @@
-package pageObjects.wordpress;
+package pageObjects.wordpress.admin;
 
 import org.openqa.selenium.WebDriver;
 
 import commons.AbstractPage;
-import pageUI.wordpress.LoginPageUI;
+import commons.WordpressPageGeneratorManager;
+import pageUI.wordpress.admin.LoginPageUI;
 
 public class LoginPageObject extends AbstractPage {
 
@@ -21,7 +22,7 @@ public class LoginPageObject extends AbstractPage {
 	public DashboardPageObject clickToContinueOrLoginButton() {
 		waitForElementVisible(driver, LoginPageUI.CONTINUE_OR_LOGIN_BUTTON);
 		clickToElement(driver, LoginPageUI.CONTINUE_OR_LOGIN_BUTTON);
-		return PageGeneratorManager.getDashboardPage(driver);
+		return WordpressPageGeneratorManager.getDashboardAdminPage(driver);
 	}
 
 	public String getEmailOrPasswordErrorMessage() {

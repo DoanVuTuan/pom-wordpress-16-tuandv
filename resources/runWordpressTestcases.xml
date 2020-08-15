@@ -15,7 +15,7 @@
 	<test name="Run on Chrome">
 		<parameter name="browser" value="chrome"></parameter>
 		<classes>
-			<class name="com.wordpress.login.Login_12_Log_Report_HTML" />
+			<class name="com.wordpress.post.Admin_01_Create_View_Edit_Delete" />
 		</classes>
 	</test>
 

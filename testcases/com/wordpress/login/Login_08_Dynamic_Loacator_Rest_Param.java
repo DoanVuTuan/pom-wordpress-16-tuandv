@@ -4,12 +4,12 @@ import org.testng.annotations.Test;
 
 import commons.AbstractTest;
 import commons.GlobalConstants;
-import pageObjects.wordpress.DashboardPageObject;
-import pageObjects.wordpress.LoginPageObject;
-import pageObjects.wordpress.MediaPageObject;
-import pageObjects.wordpress.PageGeneratorManager;
-import pageObjects.wordpress.PagesPageObject;
-import pageObjects.wordpress.PostsPageObject;
+import commons.WordpressPageGeneratorManager;
+import pageObjects.wordpress.admin.DashboardPageObject;
+import pageObjects.wordpress.admin.LoginPageObject;
+import pageObjects.wordpress.admin.MediaPageObject;
+import pageObjects.wordpress.admin.PagesPageObject;
+import pageObjects.wordpress.admin.PostsPageObject;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -27,7 +27,7 @@ public class Login_08_Dynamic_Loacator_Rest_Param extends AbstractTest {
 		driver = getBrowserDriver(browserName);
 
 		// Steep 01 - Mở URL --> chuyển qua login page
-		loginPage = PageGeneratorManager.getLoginPage(driver);
+		loginPage = WordpressPageGeneratorManager.getLoginAdminPage(driver);
 
 	}
 
@@ -65,27 +65,27 @@ public class Login_08_Dynamic_Loacator_Rest_Param extends AbstractTest {
 	public void TC_03_NavigateToPages() {
 		
 		// Media --> Posts
-		mediaPage.clickToDynamicPages(driver, "Posts");
-		postsPage = PageGeneratorManager.getPostsPage(driver);
+		mediaPage.openMenuPageByName(driver, "Posts");
+		postsPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
 		
 		
 		// Posts --> Pages
-		 postsPage.clickToDynamicPages(driver, "Pages");
-		 pagesPage = PageGeneratorManager.getPagesPage(driver);
+		 postsPage.openMenuPageByName(driver, "Pages");
+		 pagesPage = WordpressPageGeneratorManager.getPagesAdminPage(driver);
 		 
 		// Pages --> Media
-		 pagesPage.clickToDynamicPages(driver, "Media");
-		 mediaPage = PageGeneratorManager.getMediaPage(driver);
+		 pagesPage.openMenuPageByName(driver, "Media");
+		 mediaPage = WordpressPageGeneratorManager.getMediaAdminPage(driver);
 		 
 		 
 		// Media --> Posts
-		 mediaPage.clickToDynamicPages(driver, "Posts");
-		 postsPage = PageGeneratorManager.getPostsPage(driver);
+		 mediaPage.openMenuPageByName(driver, "Posts");
+		 postsPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
 		 
 		 
 		// Posts --> Media
-		 postsPage.clickToDynamicPages(driver, "Media");
-		 mediaPage = PageGeneratorManager.getMediaPage(driver);
+		 postsPage.openMenuPageByName(driver, "Media");
+		 mediaPage = WordpressPageGeneratorManager.getMediaAdminPage(driver);
 	}
 
 	@AfterClass
