@@ -23,6 +23,7 @@ import pageObjects.wordpress.admin.PagesPageObject;
 import pageObjects.wordpress.admin.PostsPageObject;
 import pageUI.bankGugu.AbstractBankPageUI;
 import pageUI.wordpress.admin.AbstractWordpressPageUI;
+import pageUI.wordpress.admin.NewEditPostsPageUI;
 import pageObjects.wordpress.user.HomePageObject;
 import pageObjects.wordpress.user.SearchResultsPageObject;
 
@@ -395,6 +396,12 @@ public abstract class AbstractPage {
 	public void scrollToElement(WebDriver driver, String locator) {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", findElementByXpath(driver, locator));
+		sleepInSeconds(1);
+	}
+
+	public void scrollToElement(WebDriver driver, String locator, String... values) {
+		jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", findElementByXpath(driver, castToObject(locator, values)));
 	}
 
 	public void sendkeyToElementByJS(WebDriver driver, String locator, String value) {
@@ -612,24 +619,38 @@ public abstract class AbstractPage {
 		openURL(driver, GlobalConstants.USER_WORDPRESS_URL);
 		return WordpressPageGeneratorManager.getHomeUserPage(driver);
 	}
-	
-	
+
 	public DashboardPageObject openAdminLoggedPage(WebDriver driver) {
 		openURL(driver, GlobalConstants.ADMIN_WORDPRESS_URL);
 		return WordpressPageGeneratorManager.getDashboardAdminPage(driver);
 	}
-	
+
 	public SearchResultsPageObject inputToSearchTextboxAtUserPage(WebDriver driver, String vallue) {
-		
-		//wait
-		//sendkey
-		//click search button
-		
+
+		// wait
+		// sendkey
+		// click search button
+
 		return WordpressPageGeneratorManager.getSearchResultsUserPage(driver);
-		
+
+	}
+
+	public boolean isSuccessMessageDisplayedWithValue(WebDriver driver, String successMsg) {
+		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_SUCCESS_MESSAGE_ON_POST_OR_PAGES_PAGE, successMsg);
+		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_SUCCESS_MESSAGE_ON_POST_OR_PAGES_PAGE, successMsg);
+	}
+
+	public boolean isRowValueDisplayedAtColumn(WebDriver driver, String columnName, String rowValue) {
+		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, rowValue);
+		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, rowValue);
 	}
 	
-	public boolean isSuccessMessageDisplayedWithValue(String string) {
+	public boolean isPostDisplayedOnLatestPost(WebDriver driver, String categoryName, String postTitle, String createdDate) {
+		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, postTitle, createdDate);
+		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, postTitle, createdDate);
+	}
+
+	public boolean isPostImageDisplayedAtPostTitleName(WebDriver driver, String string, String string2) {
 		// TODO Auto-generated method stub
 		return false;
 	}

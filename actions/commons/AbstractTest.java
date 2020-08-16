@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -88,11 +90,7 @@ public abstract class AbstractTest {
 	private boolean checkTrue(boolean condition) {
 		boolean pass = true;
 		try {
-			if (condition == true) {
-				log.info(" -------------------------- PASSED -------------------------- ");
-			} else {
-				log.info(" -------------------------- FAILED -------------------------- ");
-			}
+		
 			Assert.assertTrue(condition);
 		} catch (Throwable e) {
 			pass = false;
@@ -111,11 +109,7 @@ public abstract class AbstractTest {
 	private boolean checkFailed(boolean condition) {
 		boolean pass = true;
 		try {
-			if (condition == false) {
-				log.info(" -------------------------- PASSED -------------------------- ");
-			} else {
-				log.info(" -------------------------- FAILED -------------------------- ");
-			}
+			
 			Assert.assertFalse(condition);
 		} catch (Throwable e) {
 			pass = false;
@@ -184,6 +178,35 @@ public abstract class AbstractTest {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
+	}
+	
+	protected String getCurrentDay() {
+		DateTime nowUTC = new DateTime();
+		int day = nowUTC.getDayOfMonth();
+		if (day < 10) {
+			String dayValue = "0" + day;
+			return dayValue;
+		}
+		return day + "";
+	}
+
+	protected String getCurrentMonth() {
+		DateTime now = new DateTime();
+		int month = now.getMonthOfYear();
+		if (month < 10) {
+			String monthValue = "0" + month;
+			return monthValue;
+		}
+		return month + "";
+	}
+
+	protected String getCurrentYear() {
+		DateTime now = new DateTime();
+		return now.getYear() + "";
+	}
+
+	protected String getWordpressToday() {
+		return getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear();
 	}
 	
 }

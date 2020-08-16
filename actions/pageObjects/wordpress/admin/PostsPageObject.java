@@ -19,6 +19,24 @@ public class PostsPageObject extends AbstractPage {
 		// TODO Auto-generated method stub
 		return WordpressPageGeneratorManager.getNewEditPostsAdminPage(driver);
 	}
+	public NewEditPostsPageObject clickToAddNewButton() {
+		waitForElementClickable(driver, PostsPageUI.ADD_NEW_BUTTON);
+		clickToElement(driver, PostsPageUI.ADD_NEW_BUTTON);
+		return WordpressPageGeneratorManager.getNewEditPostsAdminPage(driver)
+				;
+	}
+	public void inputToSearchTextbox(String postTitle) {
+		waitForElementVisible(driver, PostsPageUI.SEARCH_POST_TEXTBOX);
+		sendkeyToElement(driver, PostsPageUI.SEARCH_POST_TEXTBOX, postTitle);
+		
+	}
+	public void clickToSearchPostsButton() {
+		waitForElementClickable(driver, PostsPageUI.SEARCH_POST_BUTTON);
+		clickToElement(driver, PostsPageUI.SEARCH_POST_BUTTON);
+		
+	}
+
+
 	
 
 
