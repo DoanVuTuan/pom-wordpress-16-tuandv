@@ -27,7 +27,7 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 	String newPostTitle = "[TuanDV] New Title" + Number;
 	String newPostContent = "[TuanDV] New Content "+ Number;
 	String newPostTag = "tuandv_new_post_"+Number;
-	String newPostCheckbox = "NEW LIVE CODING";
+	String newPostCategoryCheckbox = "NEW LIVE CODING";
 
 
 	@Parameters("browser")
@@ -67,7 +67,7 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 
 		newEditPostAdminPage.inputToPostContentTextbox(newPostContent);
 
-		newEditPostAdminPage.selectCategoryCheckbox(newPostCheckbox);
+		newEditPostAdminPage.selectCategoryCheckbox(newPostCategoryCheckbox);
 
 		newEditPostAdminPage.inputToTagTextbox(newPostTag);
 
@@ -99,102 +99,104 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Title", newPostTitle));
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Author", author));
-		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", newPostCheckbox));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", newPostCategoryCheckbox));
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Tags", newPostTag));
-	
 		
+		// View_Post_At_User_Page
+		homeUserPage = postsAdminPage.openEndUserPage(driver);
+
+		// design in AbstractPage
+		verifyTrue(homeUserPage.isPostDisplayedOnLatestPost(driver, newPostCategoryCheckbox, newPostTitle, today));
+		verifyTrue(homeUserPage.isPostImageDisplayedAtPostTitleName(driver,newPostTitle, featureImgName));
+
+		// Go_Post_Detail_At_Admin_Page
+		postDetailUserPage = homeUserPage.clickToPostDetailWithTitleName(driver, newPostTitle);
+
+		verifyTrue(postDetailUserPage.isCategoryNameDisplayed(newPostCategoryCheckbox));
+		verifyTrue(postDetailUserPage.isTitleNameDisplayed(newPostTitle));
+		verifyTrue(postDetailUserPage.isImageDisplayed(featureImgName));
+		verifyTrue(postDetailUserPage.isContenValuetDisplayed(newPostContent));
+		verifyTrue(postDetailUserPage.isCreatedDateDisplayed(today));
+		verifyTrue(postDetailUserPage.isAuthorDisplayed(author));
+
+		// Search_Post_At_User_Page
+		searchResultsUserPage = postDetailUserPage.inputToSearchTextboxAtUserPage(driver, newPostTitle);
+
+		verifyTrue(searchResultsUserPage.isPostTitleDisplayedOnHeader(newPostTitle));
 		
+		verifyTrue(searchResultsUserPage.isPostDisplayedOnLatestPost(driver,newPostCategoryCheckbox, newPostTitle, today));
+		verifyTrue(searchResultsUserPage.isPostImageDisplayedAtPostTitleName(driver, newPostTitle, featureImgName));
+
+	}
+
+	@Test
+	public void Post_02_Edit_Post_At_Admin_Page() {
+
+		// Navigate to admin site
+		dashboardAdminPage = searchResultsUserPage.openAdminLoggedPage(driver);
+
+		dashboardAdminPage.openMenuPageByName(driver, "Posts");
+		postsAdminPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
+		// Search_Post_At_Admin_Page
+
+		postsAdminPage.inputToSearchTextbox(newPostTitle);
+
+		postsAdminPage.clickToSearchPostsButton();
+
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Title", newPostTitle));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Author", author));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", newPostCategoryCheckbox));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Tags", newPostTag));
+
+		// Click to post detail
+		newEditPostAdminPage = postsAdminPage.clickToPostDeatailByTitleName(newPostTitle);
+
+		// Edit post
+		newEditPostAdminPage.inputToPostTitleTextbox("");
+		newEditPostAdminPage.inputToPostContentTextbox("");
+		newEditPostAdminPage.deselectCategoryCheckbox("");
+		newEditPostAdminPage.selectCategoryCheckbox("");
+		newEditPostAdminPage.inputToTagTextbox("tag_edit_name");
+		newEditPostAdminPage.clickToAddTagButton();
+		newEditPostAdminPage.clickToDeleteTagIconWithTagName("tag_new_name");
+		newEditPostAdminPage.clickToUpdateButton();
+
+		verifyTrue(newEditPostAdminPage.isSuccessMessageDisplayedWithValue("Post updated"));
+
+		// Search_Post_At_Admin_Page
+		newEditPostAdminPage.openMenuPageByName(driver, "Posts");
+		postsAdminPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
+
+		postsAdminPage.inputToSearchTextbox("");
+
+		postsAdminPage.clickToSearchPostsButton();
+
+		verifyTrue(postsAdminPage.isOnlyOneRowDisplayed("edit_title", "author", "edit_category", "tag_edit_name"));
 
 		// View_Post_At_User_Page
 		homeUserPage = postsAdminPage.openEndUserPage(driver);
 
 		// design in AbstractPage
-		verifyTrue(homeUserPage.isPostDisplayedOnLatestPost(driver, newPostCheckbox, newPostTitle, today));
-//		verifyTrue(homeUserPage.isPostImageDisplayedAtPostTitleName(driver,"title", "kia-seltos.jpg"));
-//
-//		// Go_Post_Detail_At_Admin_Page
-//		postDetailUserPage = homeUserPage.clickToPostDetailWithTitleName("title");
-//
-//		verifyTrue(postDetailUserPage.isCateggoryNameDisplayed("category"));
-//		verifyTrue(postDetailUserPage.isTitleNameDisplayed("title"));
-//		verifyTrue(postDetailUserPage.isImageDisplayed("kia-seltos.jpg"));
-//		verifyTrue(postDetailUserPage.isContentDisplayed("content"));
-//		verifyTrue(postDetailUserPage.isCreatedDateDisplayed("created date"));
-//		verifyTrue(postDetailUserPage.isAuthorDisplayed("author"));
-//
-//		// Search_Post_At_User_Page
-//		searchResultsUserPage = postDetailUserPage.inputToSearchTextboxAtUserPage(driver, "title");
-//
-//		verifyTrue(searchResultsUserPage.isPostDisplayedOnLatestPost(driver,"category", "title", "created date"));
-//		verifyTrue(searchResultsUserPage.isPostImageDisplayedAtPostTitleName(driver, "title", "kia-seltos.jpg"));
+		verifyTrue(homeUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "created date"));
+		verifyTrue(homeUserPage.isPostImageDisplayedAtPostTitleName("edit_title", "kia-seltos.jpg"));
 
+		// Go_Post_Detail_At_Admin_Page
+		postDetailUserPage = homeUserPage.clickToPostDetailWithTitleName("edit_title");
+
+		verifyTrue(postDetailUserPage.isCateggoryNameDisplayed("edit_category"));
+		verifyTrue(postDetailUserPage.isTitleNameDisplayed("edit_title"));
+		verifyTrue(postDetailUserPage.isImageDisplayed("kia-seltos.jpg"));
+		verifyTrue(postDetailUserPage.isContentDisplayed("edit_content"));
+		verifyTrue(postDetailUserPage.isCreatedDateDisplayed("created date"));
+		verifyTrue(postDetailUserPage.isAuthorDisplayed("author"));
+
+		// Search_Post_At_User_Page
+		searchResultsUserPage = postDetailUserPage.inputToSearchTextboxAtUserPage(driver, "edit_title");
+
+		verifyTrue(searchResultsUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "created date"));
+		verifyTrue(searchResultsUserPage.isPostImageDisplayedAtPostTitleName("title", "kia-seltos.jpg"));
 	}
-//
-//	@Test
-//	public void Post_02_Edit_Post_At_Admin_Page() {
-//
-//		// Navigate to admin site
-//		dashboardAdminPage = searchResultsUserPage.openAdminLoggedPage(driver);
-//
-//		dashboardAdminPage.openMenuPageByName(driver, "Posts");
-//		postsAdminPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
-//		// Search_Post_At_Admin_Page
-//
-//		postsAdminPage.inputToSearchTextbox("");
-//
-//		postsAdminPage.clickToSearchPostsButton();
-//
-//		verifyTrue(postsAdminPage.isOnlyOneRowDisplayed("title", "author", "category", "tag"));
-//
-//		// Click to post detail
-//		newEditPostAdminPage = postsAdminPage.clickToPostDeatailByTitleName("title");
-//
-//		// Edit post
-//		newEditPostAdminPage.inputToPostTitleTextbox("");
-//		newEditPostAdminPage.inputToPostContentTextbox("");
-//		newEditPostAdminPage.deselectCategoryCheckbox("");
-//		newEditPostAdminPage.selectCategoryCheckbox("");
-//		newEditPostAdminPage.inputToTagTextbox("tag_edit_name");
-//		newEditPostAdminPage.clickToAddTagButton();
-//		newEditPostAdminPage.clickToDeleteTagIconWithTagName("tag_new_name");
-//		newEditPostAdminPage.clickToUpdateButton();
-//
-//		verifyTrue(newEditPostAdminPage.isSuccessMessageDisplayedWithValue("Post updated"));
-//
-//		// Search_Post_At_Admin_Page
-//		newEditPostAdminPage.openMenuPageByName(driver, "Posts");
-//		postsAdminPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
-//
-//		postsAdminPage.inputToSearchTextbox("");
-//
-//		postsAdminPage.clickToSearchPostsButton();
-//
-//		verifyTrue(postsAdminPage.isOnlyOneRowDisplayed("edit_title", "author", "edit_category", "tag_edit_name"));
-//
-//		// View_Post_At_User_Page
-//		homeUserPage = postsAdminPage.openEndUserPage(driver);
-//
-//		// design in AbstractPage
-//		verifyTrue(homeUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "created date"));
-//		verifyTrue(homeUserPage.isPostImageDisplayedAtPostTitleName("edit_title", "kia-seltos.jpg"));
-//
-//		// Go_Post_Detail_At_Admin_Page
-//		postDetailUserPage = homeUserPage.clickToPostDetailWithTitleName("edit_title");
-//
-//		verifyTrue(postDetailUserPage.isCateggoryNameDisplayed("edit_category"));
-//		verifyTrue(postDetailUserPage.isTitleNameDisplayed("edit_title"));
-//		verifyTrue(postDetailUserPage.isImageDisplayed("kia-seltos.jpg"));
-//		verifyTrue(postDetailUserPage.isContentDisplayed("edit_content"));
-//		verifyTrue(postDetailUserPage.isCreatedDateDisplayed("created date"));
-//		verifyTrue(postDetailUserPage.isAuthorDisplayed("author"));
-//
-//		// Search_Post_At_User_Page
-//		searchResultsUserPage = postDetailUserPage.inputToSearchTextboxAtUserPage(driver, "edit_title");
-//
-//		verifyTrue(searchResultsUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "created date"));
-//		verifyTrue(searchResultsUserPage.isPostImageDisplayedAtPostTitleName("title", "kia-seltos.jpg"));
-//	}
-//
+
 //	@Test
 //	public void Post_03_Delete_Post_At_Admin_Page() {
 //		// Navigate to admin site

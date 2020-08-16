@@ -19,10 +19,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public abstract class AbstractTest {
 	private WebDriver driver;
-	
-	//Chỉ cho class nào kế thừa AbstractTest mới dùng được
+
+	// Chỉ cho class nào kế thừa AbstractTest mới dùng được
 	protected final Log log;
-	
+
 	// Constructor : khởi tạo log ra đầu tiên khi gọi đến AbstractTest
 	protected AbstractTest() {
 		log = LogFactory.getLog(getClass());
@@ -70,8 +70,6 @@ public abstract class AbstractTest {
 		return driver;
 	}
 
-	
-
 	protected void closeBrowser() {
 		driver.quit();
 	}
@@ -86,15 +84,13 @@ public abstract class AbstractTest {
 		return date;
 
 	}
-	
+
 	private boolean checkTrue(boolean condition) {
 		boolean pass = true;
 		try {
-		
 			Assert.assertTrue(condition);
 		} catch (Throwable e) {
 			pass = false;
-
 			// Add lỗi vào ReportNG
 			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
 			Reporter.getCurrentTestResult().setThrowable(e);
@@ -109,7 +105,7 @@ public abstract class AbstractTest {
 	private boolean checkFailed(boolean condition) {
 		boolean pass = true;
 		try {
-			
+
 			Assert.assertFalse(condition);
 		} catch (Throwable e) {
 			pass = false;
@@ -140,7 +136,7 @@ public abstract class AbstractTest {
 	protected boolean verifyEquals(Object actual, Object expected) {
 		return checkEquals(actual, expected);
 	}
-	
+
 	protected void closeBrowserAndDriver(WebDriver driver) {
 		try {
 			// get ra tên của OS và convert qua chữ thường
@@ -179,7 +175,7 @@ public abstract class AbstractTest {
 			log.info(e.getMessage());
 		}
 	}
-	
+
 	protected String getCurrentDay() {
 		DateTime nowUTC = new DateTime();
 		int day = nowUTC.getDayOfMonth();
@@ -208,5 +204,5 @@ public abstract class AbstractTest {
 	protected String getWordpressToday() {
 		return getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear();
 	}
-	
+
 }

@@ -15,11 +15,7 @@ public class HomePageObject extends AbstractPage {
 	public HomePageObject(WebDriver mapDriver) {
 		driver = mapDriver;
 	}
-	public PostDeatailPageObject clickToPostDetailWithTitleName(String string) {
-		// TODO Auto-generated method stub
-		
-		return WordpressPageGeneratorManager.getPostDeatailUserPage(driver);
-	}
+	
 
 
 	

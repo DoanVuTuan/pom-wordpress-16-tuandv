@@ -25,6 +25,7 @@ import pageUI.bankGugu.AbstractBankPageUI;
 import pageUI.wordpress.admin.AbstractWordpressPageUI;
 import pageUI.wordpress.admin.NewEditPostsPageUI;
 import pageObjects.wordpress.user.HomePageObject;
+import pageObjects.wordpress.user.PostDeatailPageObject;
 import pageObjects.wordpress.user.SearchResultsPageObject;
 
 public abstract class AbstractPage {
@@ -429,6 +430,16 @@ public abstract class AbstractPage {
 
 	}
 
+	public boolean isImageLoaded(WebDriver driver, String locator, String... values) {
+		jsExecutor = (JavascriptExecutor) driver;
+		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof arguments[0]" + ".naturalWidth !='undefined' && arguments[0]" + ".naturalWidth > 0", findElementByXpath(driver, castToObject(locator, values)));
+		if (status) {
+			return true;
+		}
+		return false;
+
+	}
+
 	public void waitForElementVisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator)));
@@ -454,6 +465,7 @@ public abstract class AbstractPage {
 
 		elements = findElementsByXpath(driver, locator);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
+		
 	}
 
 	public void waitForElementClickable(WebDriver driver, String locator) {
@@ -473,6 +485,7 @@ public abstract class AbstractPage {
 		}
 		fullFileName = fullFileName.trim();
 		sendkeyToElement(driver, AbstractWordpressPageUI.UPLOAD_FILE_TYPE, fullFileName);
+		sleepInSeconds(2);
 	}
 
 	public boolean areFileUplaodedDisplayed(WebDriver driver, String... fileNames) {
@@ -482,7 +495,7 @@ public abstract class AbstractPage {
 		waitForAllElementsInisible(driver, AbstractWordpressPageUI.MEDIA_PROGRESS_BAR_ICON);
 		waitForElementsVisible(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
 		elements = findElementsByXpath(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
-
+		
 		// ArrayList chứa những giá trị này
 		List<String> imageValues = new ArrayList<String>();
 
@@ -625,12 +638,16 @@ public abstract class AbstractPage {
 		return WordpressPageGeneratorManager.getDashboardAdminPage(driver);
 	}
 
-	public SearchResultsPageObject inputToSearchTextboxAtUserPage(WebDriver driver, String vallue) {
+	public SearchResultsPageObject inputToSearchTextboxAtUserPage(WebDriver driver, String searchValue) {
 
 		// wait
+		waitForElementVisible(driver, AbstractWordpressPageUI.SEARCH_ICON);
+		clickToElement(driver, AbstractWordpressPageUI.SEARCH_ICON);
 		// sendkey
-		// click search button
+		sendkeyToElement(driver, AbstractWordpressPageUI.SEARCH_TEXTBOX, searchValue);
 
+		// click search button
+		clickToElement(driver, AbstractWordpressPageUI.SEARCH_BUTTON);
 		return WordpressPageGeneratorManager.getSearchResultsUserPage(driver);
 
 	}
@@ -644,15 +661,23 @@ public abstract class AbstractPage {
 		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, rowValue);
 		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, rowValue);
 	}
-	
+
 	public boolean isPostDisplayedOnLatestPost(WebDriver driver, String categoryName, String postTitle, String createdDate) {
 		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, postTitle, createdDate);
 		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, postTitle, createdDate);
 	}
 
-	public boolean isPostImageDisplayedAtPostTitleName(WebDriver driver, String string, String string2) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isPostImageDisplayedAtPostTitleName(WebDriver driver, String postTitle, String imgName) {
+		imgName = imgName.split("\\.")[0];
+		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName);
+		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName) 
+				&& isImageLoaded(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName);
+	}
+
+	public PostDeatailPageObject clickToPostDetailWithTitleName(WebDriver driver, String postTitle) {
+		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_POST_TITLE, postTitle);
+		clickToElement(driver, AbstractWordpressPageUI.DYNAMIC_POST_TITLE, postTitle);
+		return WordpressPageGeneratorManager.getPostDeatailUserPage(driver);
 	}
 
 	private Select select;

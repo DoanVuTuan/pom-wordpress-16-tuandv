@@ -1,10 +1,7 @@
-2020-08-14 15:40:47,179 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Pre-condition : Step 01 - Navigate to login page
-2020-08-14 15:40:47,211 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 01 - Input to 'Email' textbox 
-2020-08-14 15:40:47,427 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 02 - Click to 'Continue' button 
-2020-08-14 15:40:47,540 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 03 - Input to 'Password' textbox 
-2020-08-14 15:40:48,259 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 04 - Navigate to Dashboard page
-2020-08-14 15:40:48,342 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Dasboard Page : Step 01 - Verify header text displayed
-2020-08-14 15:40:52,403 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete -  -------------------------- PASSED -------------------------- 
-2020-08-14 15:40:52,422 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Post-condition : Close browser
-2020-08-14 15:40:52,422 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - OS name = windows 10
-2020-08-14 15:40:53,271 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - ---------- QUIT BROWSER SUCCESS ----------
+2020-08-17 01:30:30,892 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Pre-condition : Step 01 - Navigate to login page
+2020-08-17 01:30:30,895 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 01 - Input to 'Email' textbox 
+2020-08-17 01:30:31,088 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 02 - Click to 'Continue' button 
+2020-08-17 01:30:31,182 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 03 - Input to 'Password' textbox 
+2020-08-17 01:30:31,861 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 04 - Navigate to Dashboard page
+2020-08-17 01:30:31,935 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Dasboard Page : Step 01 - Verify header text displayed
+2020-08-17 01:31:00,785 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Post-condition : Close browser
