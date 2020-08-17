@@ -263,7 +263,7 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 	@AfterClass
 	public void afterClass() {
 		log.info("Post-condition : Close browser");
-	//	closeBrowserAndDriver(driver);
+		closeBrowserAndDriver(driver);
 	}
 
 	WebDriver driver;
