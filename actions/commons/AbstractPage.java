@@ -1,5 +1,6 @@
 package commons;
 
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,8 +12,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -242,17 +245,31 @@ public abstract class AbstractPage {
 		return elements.size();
 	}
 
-	public void checkToCheckBox(WebDriver driver, String locator) {
+	public void checkToCheckbox(WebDriver driver, String locator) {
 		element = findElementByXpath(driver, locator);
 		if (!element.isSelected()) {
-			element.click();
+			clickToElementByJS(driver, locator);
 		}
 	}
 
-	public void uncheckToCheckBox(WebDriver driver, String locator) {
+	public void checkToCheckbox(WebDriver driver, String locator, String... values) {
+		element = findElementByXpath(driver, castToObject(locator, values));
+		if (!element.isSelected()) {
+			clickToElementByJS(driver, castToObject(locator, values));
+		}
+	}
+
+	public void uncheckToCheckbox(WebDriver driver, String locator) {
 		element = findElementByXpath(driver, locator);
 		if (element.isSelected()) {
-			element.click();
+			clickToElementByJS(driver, locator);
+		}
+	}
+
+	public void uncheckToCheckbox(WebDriver driver, String locator, String... values) {
+		element = findElementByXpath(driver, castToObject(locator, values));
+		if (element.isSelected()) {
+			clickToElementByJS(driver, castToObject(locator, values));
 		}
 	}
 
@@ -266,9 +283,16 @@ public abstract class AbstractPage {
 
 	}
 
-	public boolean isElementDisplayed(WebDriver driver, String locator, String... values) {
-		return findElementByXpath(driver, castToObject(locator, values)).isDisplayed();
+	public boolean isElementDisplayed(WebDriver driver, String locator,String... values) {
+		try {
+			return findElementByXpath(driver, castToObject(locator, values)).isDisplayed();
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
+
 
 	public void overrideGlobalTimeout(WebDriver driver, long timeout) {
 		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
@@ -377,6 +401,11 @@ public abstract class AbstractPage {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 	}
+	
+	public void scrollToTopPage(WebDriver driver) {
+		jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("window.scrollTo(0,0)");
+	}
 
 	// Element
 	public void highlightElement(WebDriver driver, String locator) {
@@ -392,6 +421,11 @@ public abstract class AbstractPage {
 	public void clickToElementByJS(WebDriver driver, String locator) {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].click();", findElementByXpath(driver, locator));
+	}
+	
+	public void clickToElementByJS(WebDriver driver, String locator,String... values) {
+		jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].click();", findElementByXpath(driver, castToObject(locator, values)));
 	}
 
 	public void scrollToElement(WebDriver driver, String locator) {
@@ -439,6 +473,53 @@ public abstract class AbstractPage {
 		return false;
 
 	}
+	
+//	public void waitUntilJSReady(WebDriver driver) {
+//		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+//		jsExecutor = (JavascriptExecutor) driver;
+//		try {
+//			ExpectedCondition <Boolean> jsLoad = jsExecutor.executeScript("return document.readyState").toString().equals("complete");
+//			
+//			boolean jsReady = jsExecutor.executeScript("return document.readyState").toString().equals("complete");
+//			
+//			if(!jsReady) {
+//				explicitWait.until(jsLoad);
+//			}
+//		} catch (WebDriverException ignored) {
+//			
+//		}
+//	}
+	
+	public boolean waitForJStoLoad(WebDriver driver) {
+
+	  
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		jsExecutor = (JavascriptExecutor) driver;
+
+	    // wait for jQuery to load
+	    ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
+	      @Override
+	      public Boolean apply(WebDriver driver) {
+	        try {
+	          return ((Long)jsExecutor.executeScript("return jQuery.active") == 0);
+	        }
+	        catch (Exception e) {
+	          return true;
+	        }
+	      }
+	    };
+
+	    // wait for Javascript to load
+	    ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
+	      @Override
+	      public Boolean apply(WebDriver driver) {
+	        return jsExecutor.executeScript("return document.readyState")
+	            .toString().equals("complete");
+	      }
+	    };
+
+	  return explicitWait.until(jQueryLoad) && explicitWait.until(jsLoad);
+	}
 
 	public void waitForElementVisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
@@ -455,17 +536,22 @@ public abstract class AbstractPage {
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(castToObject(locator, values))));
 	}
 
-	public void waitForElementInisible(WebDriver driver, String locator) {
+	public void waitForElementInvisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(locator)));
 	}
+	
+	public void waitForElementInvisible(WebDriver driver, String locator,String... values) {
+		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(castToObject(locator, values))));
+	}
 
-	public void waitForAllElementsInisible(WebDriver driver, String locator) {
+	public void waitForAllElementsInvisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 
 		elements = findElementsByXpath(driver, locator);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
-		
+
 	}
 
 	public void waitForElementClickable(WebDriver driver, String locator) {
@@ -485,17 +571,18 @@ public abstract class AbstractPage {
 		}
 		fullFileName = fullFileName.trim();
 		sendkeyToElement(driver, AbstractWordpressPageUI.UPLOAD_FILE_TYPE, fullFileName);
-		sleepInSeconds(2);
+		//sleepInSeconds(1);
 	}
 
 	public boolean areFileUplaodedDisplayed(WebDriver driver, String... fileNames) {
 		boolean status = false;
 		int number = fileNames.length;
-
-		waitForAllElementsInisible(driver, AbstractWordpressPageUI.MEDIA_PROGRESS_BAR_ICON);
+		waitForJStoLoad(driver);
+		waitForAllElementsInvisible(driver, AbstractWordpressPageUI.MEDIA_PROGRESS_BAR_ICON);
 		waitForElementsVisible(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
+	
 		elements = findElementsByXpath(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
-		
+
 		// ArrayList chứa những giá trị này
 		List<String> imageValues = new ArrayList<String>();
 
@@ -639,7 +726,7 @@ public abstract class AbstractPage {
 	}
 
 	public SearchResultsPageObject inputToSearchTextboxAtUserPage(WebDriver driver, String searchValue) {
-
+		scrollToTopPage(driver);
 		// wait
 		waitForElementVisible(driver, AbstractWordpressPageUI.SEARCH_ICON);
 		clickToElement(driver, AbstractWordpressPageUI.SEARCH_ICON);
@@ -662,14 +749,21 @@ public abstract class AbstractPage {
 		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, rowValue);
 	}
 
+	public boolean isRowValueUndisplayedAtColumn(WebDriver driver, String columnName, String rowValue) {
+		return isElementUndisplayed(driver, AbstractWordpressPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, rowValue);
+	}
+	
 	public boolean isPostDisplayedOnLatestPost(WebDriver driver, String categoryName, String postTitle, String createdDate) {
 		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, postTitle, createdDate);
 		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, postTitle, createdDate);
 	}
+	
+
 
 	public boolean isPostImageDisplayedAtPostTitleName(WebDriver driver, String postTitle, String imgName) {
 		imgName = imgName.split("\\.")[0];
 		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName);
+		waitForJStoLoad(driver);
 		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName) 
 				&& isImageLoaded(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName);
 	}

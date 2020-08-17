@@ -17,9 +17,14 @@ public class PostDeatailPageObject extends AbstractPage {
 		waitForElementVisible(driver, PostDeatailPageUI.CATEGORY_NAME, newPostCategoryCheckbox);
 		return isElementDisplayed(driver, PostDeatailPageUI.CATEGORY_NAME, newPostCategoryCheckbox);
 	}
+	
+	public boolean isCategoryNameUndisplayed(String newPostCategoryCheckbox) {		
+		return isElementUndisplayed(driver, PostDeatailPageUI.CATEGORY_NAME, newPostCategoryCheckbox);
+	}
 
 	public boolean isImageDisplayed(String featureImgName) {
 		featureImgName = featureImgName.split("\\.")[0];
+		waitForJStoLoad(driver);
 		waitForElementVisible(driver, PostDeatailPageUI.POST_IMAGE_NAME, featureImgName);
 		return isElementDisplayed(driver, PostDeatailPageUI.POST_IMAGE_NAME, featureImgName)
 				&& isImageLoaded(driver, PostDeatailPageUI.POST_IMAGE_NAME, featureImgName);
@@ -29,11 +34,27 @@ public class PostDeatailPageObject extends AbstractPage {
 		waitForElementVisible(driver, PostDeatailPageUI.POST_TITLE_NAME, newPostTitle);
 		return isElementDisplayed(driver, PostDeatailPageUI.POST_TITLE_NAME, newPostTitle);
 	}
+	
+	public boolean isTitleNameUndisplayed(String newPostTitle) {
+		
+		return isElementUndisplayed(driver, PostDeatailPageUI.POST_TITLE_NAME, newPostTitle);
+	}
 
 	public boolean isContenValuetDisplayed(String newPostContent) {
 		waitForElementVisible(driver, PostDeatailPageUI.POST_CONTENT_VALUE, newPostContent);
 		return isElementDisplayed(driver, PostDeatailPageUI.POST_CONTENT_VALUE, newPostContent);
 	}
+	
+	public boolean isPostTagDisplayed(String newPostTagName) {
+		waitForElementVisible(driver, PostDeatailPageUI.POST_TAG_NAME, newPostTagName);
+		return isElementDisplayed(driver, PostDeatailPageUI.POST_TAG_NAME, newPostTagName);
+	}
+	
+	public boolean isPostTagUndisplayed(String newPostTagName) {
+		//waitForElementInvisible(driver, PostDeatailPageUI.POST_TAG_NAME, newPostTagName);
+		return isElementUndisplayed(driver, PostDeatailPageUI.POST_TAG_NAME, newPostTagName);
+	}
+
 
 	public boolean isCreatedDateDisplayed(String today) {
 		waitForElementVisible(driver, PostDeatailPageUI.POST_CREATED_DATE, today);

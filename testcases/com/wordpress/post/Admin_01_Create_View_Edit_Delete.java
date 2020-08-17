@@ -27,7 +27,11 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 	String newPostTitle = "[TuanDV] New Title" + Number;
 	String newPostContent = "[TuanDV] New Content "+ Number;
 	String newPostTag = "tuandv_new_post_"+Number;
-	String newPostCategoryCheckbox = "NEW LIVE CODING";
+	String newPostCategory = "NEW LIVE CODING";
+	
+	String editPostTitle = "[TuanDV] Edit Title" + Number;
+	String editPostTag = "tuandv_edit_post_"+Number;
+	String editPostCategory = "EDIT LIVE CODING";
 
 
 	@Parameters("browser")
@@ -67,7 +71,7 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 
 		newEditPostAdminPage.inputToPostContentTextbox(newPostContent);
 
-		newEditPostAdminPage.selectCategoryCheckbox(newPostCategoryCheckbox);
+		newEditPostAdminPage.selectCategoryCheckbox(newPostCategory);
 
 		newEditPostAdminPage.inputToTagTextbox(newPostTag);
 
@@ -85,7 +89,7 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 
 		verifyTrue(newEditPostAdminPage.isFeatureImageDisplayed(featureImgName));
 
-		newEditPostAdminPage.clickToPublishButton();
+		newEditPostAdminPage.clickToPublishOrUpdateButton();
 
 		verifyTrue(newEditPostAdminPage.isSuccessMessageDisplayedWithValue(driver, "Post published."));
 
@@ -99,23 +103,24 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Title", newPostTitle));
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Author", author));
-		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", newPostCategoryCheckbox));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", newPostCategory));
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Tags", newPostTag));
 		
 		// View_Post_At_User_Page
 		homeUserPage = postsAdminPage.openEndUserPage(driver);
 
 		// design in AbstractPage
-		verifyTrue(homeUserPage.isPostDisplayedOnLatestPost(driver, newPostCategoryCheckbox, newPostTitle, today));
+		verifyTrue(homeUserPage.isPostDisplayedOnLatestPost(driver, newPostCategory, newPostTitle, today));
 		verifyTrue(homeUserPage.isPostImageDisplayedAtPostTitleName(driver,newPostTitle, featureImgName));
 
 		// Go_Post_Detail_At_Admin_Page
 		postDetailUserPage = homeUserPage.clickToPostDetailWithTitleName(driver, newPostTitle);
 
-		verifyTrue(postDetailUserPage.isCategoryNameDisplayed(newPostCategoryCheckbox));
+		verifyTrue(postDetailUserPage.isCategoryNameDisplayed(newPostCategory));
 		verifyTrue(postDetailUserPage.isTitleNameDisplayed(newPostTitle));
 		verifyTrue(postDetailUserPage.isImageDisplayed(featureImgName));
 		verifyTrue(postDetailUserPage.isContenValuetDisplayed(newPostContent));
+		verifyTrue(postDetailUserPage.isPostTagDisplayed(newPostTag));
 		verifyTrue(postDetailUserPage.isCreatedDateDisplayed(today));
 		verifyTrue(postDetailUserPage.isAuthorDisplayed(author));
 
@@ -124,7 +129,7 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 
 		verifyTrue(searchResultsUserPage.isPostTitleDisplayedOnHeader(newPostTitle));
 		
-		verifyTrue(searchResultsUserPage.isPostDisplayedOnLatestPost(driver,newPostCategoryCheckbox, newPostTitle, today));
+		verifyTrue(searchResultsUserPage.isPostDisplayedOnLatestPost(driver,newPostCategory, newPostTitle, today));
 		verifyTrue(searchResultsUserPage.isPostImageDisplayedAtPostTitleName(driver, newPostTitle, featureImgName));
 
 	}
@@ -145,101 +150,115 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Title", newPostTitle));
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Author", author));
-		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", newPostCategoryCheckbox));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", newPostCategory));
 		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Tags", newPostTag));
 
 		// Click to post detail
 		newEditPostAdminPage = postsAdminPage.clickToPostDeatailByTitleName(newPostTitle);
 
 		// Edit post
-		newEditPostAdminPage.inputToPostTitleTextbox("");
-		newEditPostAdminPage.inputToPostContentTextbox("");
-		newEditPostAdminPage.deselectCategoryCheckbox("");
-		newEditPostAdminPage.selectCategoryCheckbox("");
-		newEditPostAdminPage.inputToTagTextbox("tag_edit_name");
+		newEditPostAdminPage.inputToPostTitleTextbox(editPostTitle);
+		newEditPostAdminPage.deselectCategoryCheckbox(newPostCategory);
+		newEditPostAdminPage.selectCategoryCheckbox(editPostCategory);
+		newEditPostAdminPage.inputToTagTextbox(editPostTag);
 		newEditPostAdminPage.clickToAddTagButton();
-		newEditPostAdminPage.clickToDeleteTagIconWithTagName("tag_new_name");
-		newEditPostAdminPage.clickToUpdateButton();
+		newEditPostAdminPage.clickToDeleteTagIconWithTagName(newPostTag);		
+		newEditPostAdminPage.clickToPublishOrUpdateButton();
+		verifyTrue(newEditPostAdminPage.isSuccessMessageDisplayedWithValue(driver,"Post updated"));
 
-		verifyTrue(newEditPostAdminPage.isSuccessMessageDisplayedWithValue("Post updated"));
-
+		
 		// Search_Post_At_Admin_Page
 		newEditPostAdminPage.openMenuPageByName(driver, "Posts");
 		postsAdminPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
 
-		postsAdminPage.inputToSearchTextbox("");
+		postsAdminPage.inputToSearchTextbox(editPostTitle);
 
 		postsAdminPage.clickToSearchPostsButton();
 
-		verifyTrue(postsAdminPage.isOnlyOneRowDisplayed("edit_title", "author", "edit_category", "tag_edit_name"));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Title", editPostTitle));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Author", author));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", editPostCategory));
+		verifyTrue(postsAdminPage.isRowValueUndisplayedAtColumn(driver, "Categories", newPostCategory));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Tags", editPostTag));
 
 		// View_Post_At_User_Page
 		homeUserPage = postsAdminPage.openEndUserPage(driver);
 
 		// design in AbstractPage
-		verifyTrue(homeUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "created date"));
-		verifyTrue(homeUserPage.isPostImageDisplayedAtPostTitleName("edit_title", "kia-seltos.jpg"));
+		verifyTrue(homeUserPage.isPostDisplayedOnLatestPost(driver, editPostCategory, editPostTitle, today));
+		verifyTrue(homeUserPage.isPostImageDisplayedAtPostTitleName(driver,editPostTitle, featureImgName));
 
 		// Go_Post_Detail_At_Admin_Page
-		postDetailUserPage = homeUserPage.clickToPostDetailWithTitleName("edit_title");
+		postDetailUserPage = homeUserPage.clickToPostDetailWithTitleName(driver, editPostTitle);
 
-		verifyTrue(postDetailUserPage.isCateggoryNameDisplayed("edit_category"));
-		verifyTrue(postDetailUserPage.isTitleNameDisplayed("edit_title"));
-		verifyTrue(postDetailUserPage.isImageDisplayed("kia-seltos.jpg"));
-		verifyTrue(postDetailUserPage.isContentDisplayed("edit_content"));
-		verifyTrue(postDetailUserPage.isCreatedDateDisplayed("created date"));
-		verifyTrue(postDetailUserPage.isAuthorDisplayed("author"));
+		verifyTrue(postDetailUserPage.isCategoryNameUndisplayed(newPostCategory));
+		verifyTrue(postDetailUserPage.isCategoryNameDisplayed(editPostCategory));
+		verifyTrue(postDetailUserPage.isTitleNameUndisplayed(newPostTitle));
+		verifyTrue(postDetailUserPage.isTitleNameDisplayed(editPostTitle));
+		verifyTrue(postDetailUserPage.isImageDisplayed(featureImgName));
+		verifyTrue(postDetailUserPage.isContenValuetDisplayed(newPostContent));
+		verifyTrue(postDetailUserPage.isPostTagUndisplayed(newPostTag));
+		verifyTrue(postDetailUserPage.isPostTagDisplayed(editPostTag));
+		verifyTrue(postDetailUserPage.isCreatedDateDisplayed(today));
+		verifyTrue(postDetailUserPage.isAuthorDisplayed(author));
 
 		// Search_Post_At_User_Page
-		searchResultsUserPage = postDetailUserPage.inputToSearchTextboxAtUserPage(driver, "edit_title");
+		searchResultsUserPage = postDetailUserPage.inputToSearchTextboxAtUserPage(driver, editPostTitle);
 
-		verifyTrue(searchResultsUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "created date"));
-		verifyTrue(searchResultsUserPage.isPostImageDisplayedAtPostTitleName("title", "kia-seltos.jpg"));
+		verifyTrue(searchResultsUserPage.isPostTitleDisplayedOnHeader(editPostTitle));
+		
+		verifyTrue(searchResultsUserPage.isPostDisplayedOnLatestPost(driver,editPostCategory, editPostTitle, today));
+		verifyTrue(searchResultsUserPage.isPostImageDisplayedAtPostTitleName(driver, editPostTitle, featureImgName));
 	}
 
-//	@Test
-//	public void Post_03_Delete_Post_At_Admin_Page() {
-//		// Navigate to admin site
-//		dashboardAdminPage = searchResultsUserPage.openAdminLoggedPage(driver);
-//
-//		dashboardAdminPage.openMenuPageByName(driver, "Posts");
-//		postsAdminPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
-//		// Search_Post_At_Admin_Page
-//
-//		postsAdminPage.inputToSearchTextbox("");
-//
-//		postsAdminPage.clickToSearchPostsButton();
-//
-//		verifyTrue(postsAdminPage.isOnlyOneRowDisplayed("edit_title", "author", "edit_category", "tag"));
-//
-//		newEditPostAdminPage = postsAdminPage.clickToPostDeatailByTitleName("edit_title");
-//
-//		postsAdminPage = newEditPostAdminPage.clickToMoveToTrashButton();
-//
-//		verifyTrue(postsAdminPage.isSuccessMessageDisplayedWithValue("1 post moved to the trash."));
-//
-//		// Search_Post_At_Admin_Page
-//
-//		postsAdminPage.inputToSearchTextbox("");
-//		postsAdminPage.clickToSearchPostsButton();
-//
-//		verifyFalse(postsAdminPage.isOnlyOneRowDisplayed("edit_title", "author", "edit_category", "tag"));
-//
-//		verifyTrue(postsAdminPage.isNoPostFoundMessageDisplayed("No post found"));
-//
-//		// View_Post_At_User_Page
-//		homeUserPage = postsAdminPage.openEndUserPage(driver);
-//
-//		// design in AbstractPage
-//		verifyFalse(homeUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "created date"));
-//		verifyFalse(homeUserPage.isPostImageDisplayedAtPostTitleName("edit_title", "kia-seltos.jpg"));
-////		Search_Post_At_User_Page
-//
-//		searchResultsUserPage = homeUserPage.inputToSearchTextboxAtUserPage(driver, "edit_title");
-//
-//		verifyFalse(searchResultsUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "created date"));
-//		verifyFalse(searchResultsUserPage.isPostImageDisplayedAtPostTitleName("title", "kia-seltos.jpg"));
-//	}
+	@Test
+	public void Post_03_Delete_Post_At_Admin_Page() {
+		// Navigate to admin site
+		dashboardAdminPage = searchResultsUserPage.openAdminLoggedPage(driver);
+
+		dashboardAdminPage.openMenuPageByName(driver, "Posts");
+		postsAdminPage = WordpressPageGeneratorManager.getPostsAdminPage(driver);
+		// Search_Post_At_Admin_Page
+
+		postsAdminPage.inputToSearchTextbox(editPostTitle);
+
+		postsAdminPage.clickToSearchPostsButton();
+
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Title", editPostTitle));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Author", author));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Categories", editPostCategory));
+		verifyTrue(postsAdminPage.isRowValueDisplayedAtColumn(driver, "Tags", editPostTag));
+
+		newEditPostAdminPage = postsAdminPage.clickToPostDeatailByTitleName(editPostTitle);
+
+		postsAdminPage = newEditPostAdminPage.clickToMoveToTrashButton();
+
+		verifyTrue(postsAdminPage.isSuccessMessageDisplayedWithValue(driver, "1 post moved to the Trash."));
+
+		// Search_Post_At_Admin_Page
+
+		postsAdminPage.inputToSearchTextbox(editPostTitle);
+		postsAdminPage.clickToSearchPostsButton();
+
+		verifyTrue(postsAdminPage.isRowValueUndisplayedAtColumn(driver, "Title", editPostTitle));
+		verifyTrue(postsAdminPage.isRowValueUndisplayedAtColumn(driver, "Author", author));
+		verifyTrue(postsAdminPage.isRowValueUndisplayedAtColumn(driver, "Categories", editPostCategory));
+		verifyTrue(postsAdminPage.isRowValueUndisplayedAtColumn(driver, "Tags", editPostTag));
+
+		verifyTrue(postsAdminPage.isNoPostFoundMessageDisplayed());
+
+		// View_Post_At_User_Page
+		homeUserPage = postsAdminPage.openEndUserPage(driver);
+
+	
+
+//		Search_Post_At_User_Page
+
+		searchResultsUserPage = homeUserPage.inputToSearchTextboxAtUserPage(driver,editPostTitle);
+
+		verifyTrue(searchResultsUserPage.isErrorMessageDisplayed());
+		
+	}
 
 	@AfterClass
 	public void afterClass() {

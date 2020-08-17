@@ -19,6 +19,10 @@ public class SearchResultsPageObject extends AbstractPage {
 		waitForElementClickable(driver, SearchResultsPageUI.POST_TITLE_ON_HEADER, newPostTitle);
 		return isElementDisplayed(driver, SearchResultsPageUI.POST_TITLE_ON_HEADER, newPostTitle);
 	}
+	public boolean isErrorMessageDisplayed() {
+		waitForElementsVisible(driver, SearchResultsPageUI.ERROR_SEARCH_MSG);
+		return isElementDisplayed(driver, SearchResultsPageUI.ERROR_SEARCH_MSG);
+	}
 
 
 

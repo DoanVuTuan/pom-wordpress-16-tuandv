@@ -15,8 +15,9 @@ public class PostsPageObject extends AbstractPage {
 	public PostsPageObject(WebDriver mapDriver) {
 		driver = mapDriver;
 	}
-	public NewEditPostsPageObject clickToPostDeatailByTitleName(String string) {
-		// TODO Auto-generated method stub
+	public NewEditPostsPageObject clickToPostDeatailByTitleName(String titleName) {
+		waitForElementClickable(driver, PostsPageUI.POST_TITLE_LINK,titleName);
+		clickToElement(driver, PostsPageUI.POST_TITLE_LINK,titleName);
 		return WordpressPageGeneratorManager.getNewEditPostsAdminPage(driver);
 	}
 	public NewEditPostsPageObject clickToAddNewButton() {
@@ -34,6 +35,10 @@ public class PostsPageObject extends AbstractPage {
 		waitForElementClickable(driver, PostsPageUI.SEARCH_POST_BUTTON);
 		clickToElement(driver, PostsPageUI.SEARCH_POST_BUTTON);
 		
+	}
+	public boolean isNoPostFoundMessageDisplayed() {
+		waitForElementsVisible(driver, PostsPageUI.NO_POST_FOUND_MSG);
+		return isElementDisplayed(driver, PostsPageUI.NO_POST_FOUND_MSG);
 	}
 
 

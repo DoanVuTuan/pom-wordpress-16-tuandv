@@ -17,30 +17,22 @@ public class NewEditPostsPageObject extends AbstractPage {
 		driver = mapDriver;
 	}
 
-	public void clickToPublishButton() {
-		
-		
+	public void clickToPublishOrUpdateButton() {
+
 		// wait to clickable
-		waitForElementClickable(driver, NewEditPostsPageUI.PUBLISH_BUTTON);
+		waitForElementClickable(driver, NewEditPostsPageUI.PUBLISH_OR_UPDATE_BUTTON);
 		// click button
-		//clickToElement(driver, NewEditPostsPageUI.PUBLISH_BUTTON);
-		clickToElementByJS(driver, NewEditPostsPageUI.PUBLISH_BUTTON);
+		// clickToElement(driver, NewEditPostsPageUI.PUBLISH_BUTTON);
+		clickToElementByJS(driver, NewEditPostsPageUI.PUBLISH_OR_UPDATE_BUTTON);
 		
 
-	}
-
-	public void clickToUpdateButton() {
-		// wait to clickable
-
-		// click button
-
-		// wait for loading icon invisible
 	}
 
 	public PostsPageObject clickToMoveToTrashButton() {
 		// wait to clickable
-
+		waitForElementClickable(driver, NewEditPostsPageUI.MOVE_TO_TRASH_BUTTON);
 		// click button
+		clickToElementByJS(driver, NewEditPostsPageUI.MOVE_TO_TRASH_BUTTON);
 		return WordpressPageGeneratorManager.getPostsAdminPage(driver);
 	}
 
@@ -57,10 +49,17 @@ public class NewEditPostsPageObject extends AbstractPage {
 		switchToDefaultContent(driver);
 	}
 
-	public void selectCategoryCheckbox(String checkBoxLabelText) {
-		waitForElementClickable(driver, NewEditPostsPageUI.CATEGORY_CHECKBOX, checkBoxLabelText);
-		scrollToElement(driver, NewEditPostsPageUI.CATEGORY_CHECKBOX, checkBoxLabelText);
-		clickToElement(driver, NewEditPostsPageUI.CATEGORY_CHECKBOX, checkBoxLabelText);
+	public void selectCategoryCheckbox(String newPostCategory) {
+		waitForElementClickable(driver, NewEditPostsPageUI.CATEGORY_CHECKBOX, newPostCategory);
+		
+		checkToCheckbox(driver, NewEditPostsPageUI.CATEGORY_CHECKBOX, newPostCategory);
+
+	}
+
+	public void deselectCategoryCheckbox(String newPostCategory) {
+		waitForElementClickable(driver, NewEditPostsPageUI.CATEGORY_CHECKBOX, newPostCategory);
+		
+		uncheckToCheckbox(driver, NewEditPostsPageUI.CATEGORY_CHECKBOX, newPostCategory);
 
 	}
 
@@ -98,6 +97,12 @@ public class NewEditPostsPageObject extends AbstractPage {
 		String[] files = imgName.split("\\.");
 		waitForElementVisible(driver, NewEditPostsPageUI.FEATURE_IMAGE_THUMBNAIL, files[0]);
 		return isElementDisplayed(driver, NewEditPostsPageUI.FEATURE_IMAGE_THUMBNAIL, files[0]);
+	}
+
+	public void clickToDeleteTagIconWithTagName(String newPostTag) {
+		waitForElementClickable(driver, NewEditPostsPageUI.DELETE_TAG_NAME_ICON, newPostTag);
+		clickToElement(driver, NewEditPostsPageUI.DELETE_TAG_NAME_ICON, newPostTag);
+
 	}
 
 }
