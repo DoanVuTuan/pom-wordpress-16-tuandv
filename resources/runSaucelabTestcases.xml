@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Sauce Lab Sort" parallel="false">
+
+	<test name="Run on Firefox browsers">
+		<parameter name="browser" value="firefox"></parameter>
+		<parameter name="url" value="https://www.saucedemo.com/inventory.html"></parameter>
+		<classes>
+
+			<class name="com.saucelab.sort.Sort_ASC_DESC" />
+			
+		</classes>
+
+	</test>
+
+</suite> 

@@ -1,7 +1,0 @@
-2020-08-17 10:20:27,964 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Pre-condition : Step 01 - Navigate to login page
-2020-08-17 10:20:27,968 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 01 - Input to 'Email' textbox 
-2020-08-17 10:20:28,214 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 02 - Click to 'Continue' button 
-2020-08-17 10:20:28,337 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 03 - Input to 'Password' textbox 
-2020-08-17 10:20:29,079 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Login Page : Step 04 - Navigate to Dashboard page
-2020-08-17 10:20:29,177 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Dasboard Page : Step 01 - Verify header text displayed
-2020-08-17 10:22:13,369 INFO  com.wordpress.post.Admin_01_Create_View_Edit_Delete - Post-condition : Close browser

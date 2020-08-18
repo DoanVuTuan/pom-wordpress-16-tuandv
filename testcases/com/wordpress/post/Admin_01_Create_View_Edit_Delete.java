@@ -259,6 +259,8 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 		verifyTrue(searchResultsUserPage.isErrorMessageDisplayed());
 		
 	}
+	
+
 
 	@AfterClass
 	public void afterClass() {

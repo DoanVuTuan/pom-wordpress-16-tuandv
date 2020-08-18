@@ -1,18 +1,19 @@
 package commons;
 
-import java.sql.Driver;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -20,13 +21,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 import pageObjects.wordpress.admin.DashboardPageObject;
 import pageObjects.wordpress.admin.MediaPageObject;
 import pageObjects.wordpress.admin.PagesPageObject;
 import pageObjects.wordpress.admin.PostsPageObject;
 import pageUI.bankGugu.AbstractBankPageUI;
 import pageUI.wordpress.admin.AbstractWordpressPageUI;
-import pageUI.wordpress.admin.NewEditPostsPageUI;
 import pageObjects.wordpress.user.HomePageObject;
 import pageObjects.wordpress.user.PostDeatailPageObject;
 import pageObjects.wordpress.user.SearchResultsPageObject;
@@ -283,7 +285,7 @@ public abstract class AbstractPage {
 
 	}
 
-	public boolean isElementDisplayed(WebDriver driver, String locator,String... values) {
+	public boolean isElementDisplayed(WebDriver driver, String locator, String... values) {
 		try {
 			return findElementByXpath(driver, castToObject(locator, values)).isDisplayed();
 		} catch (NoSuchElementException e) {
@@ -292,7 +294,6 @@ public abstract class AbstractPage {
 		}
 
 	}
-
 
 	public void overrideGlobalTimeout(WebDriver driver, long timeout) {
 		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
@@ -401,7 +402,7 @@ public abstract class AbstractPage {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 	}
-	
+
 	public void scrollToTopPage(WebDriver driver) {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("window.scrollTo(0,0)");
@@ -422,8 +423,8 @@ public abstract class AbstractPage {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].click();", findElementByXpath(driver, locator));
 	}
-	
-	public void clickToElementByJS(WebDriver driver, String locator,String... values) {
+
+	public void clickToElementByJS(WebDriver driver, String locator, String... values) {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].click();", findElementByXpath(driver, castToObject(locator, values)));
 	}
@@ -473,7 +474,7 @@ public abstract class AbstractPage {
 		return false;
 
 	}
-	
+
 //	public void waitUntilJSReady(WebDriver driver) {
 //		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 //		jsExecutor = (JavascriptExecutor) driver;
@@ -489,36 +490,253 @@ public abstract class AbstractPage {
 //			
 //		}
 //	}
+
+	/* Sort ASC */
+
+	public boolean isDataSortedAscending(WebDriver driver, String locator) {
+		// Declare Array List
+		ArrayList<String> arrayList = new ArrayList();
+
+		// Find all element that matching with condition (Name / Price / ...)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+
+		// Get text of each element then add to Array List
+		for (WebElement element : elementList) {
+			arrayList.add(element.getText());
+		}
+
+		System.out.println("============ Sorted Data on UI ============");
+		for (String name : arrayList) {
+			System.out.println(name);
+		}
+
+		// Copy to new array list then SORT in code
+		ArrayList<String> sortedList = new ArrayList<>();
+		for (String child : arrayList) {
+			sortedList.add(child);
+		}
+
+		// Execute SORT ASC
+		Collections.sort(sortedList);
+		System.out.println("============ Sorted ASC Data on Code ============");
+		for (String name : sortedList) {
+			System.out.println(name);
+		}
+
+		// Verify sorted data on UI vs Sorted Data on Code
+		return sortedList.equals(arrayList);
+
+	}
+
+	/* Sort DESC */
+
+	public boolean isDataSortedDecending(WebDriver driver, String locator) {
+		// Declare Array List
+		ArrayList<String> arrayList = new ArrayList();
+
+		// Find all element that matching with condition (Name / Price / ...)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+
+		// Get text of each element then add to Array List
+		for (WebElement element : elementList) {
+			arrayList.add(element.getText());
+		}
+
+		System.out.println("============ Sorted Data on UI ============");
+		for (String name : arrayList) {
+			System.out.println(name);
+		}
+
+		// Copy to new array list then SORT in code
+		ArrayList<String> sortedList = new ArrayList<>();
+		for (String child : arrayList) {
+			sortedList.add(child);
+		}
+
+		// Execute SORT ASC
+		Collections.sort(sortedList);
+		
+		// Reverse data so SORT DESC
+		Collections.reverse(sortedList);
+		
+		//Collections.sort(arrayList, Collections.reverseOrder());
+		System.out.println("============ Sorted DESC Data on Code ============");
+		for (String name : sortedList) {
+			System.out.println(name);
+		}
+		
+		// Verify sorted data on UI vs Sorted Data on Code
+		return sortedList.equals(arrayList);
+
+	}
+
 	
+	/*Sort Java 8 */
+	public boolean isDataSortedAsc(WebDriver driver, String locator) {
+		List<WebElement> elementLists = findElementsByXpath(driver, locator);
+		List<String> names = elementLists.stream().map(n->n.getText()).collect(Collectors.toList());
+		List<String> sortedNames = new ArrayList<String>(names);
+		Collections.sort(sortedNames);
+		return names.equals(sortedNames);
+		
+	}
+	
+	/*Sort by Price...*/
+	
+	public boolean isPriceSortedAscending(WebDriver driver, String locator) {
+		// Declare Array List
+		ArrayList<Float> arrayList = new ArrayList<Float>();
+
+		// Find all element that matching with condition (Name / Price / ...)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+
+		// Get text of each element then add to Array List
+		for (WebElement element : elementList) {
+			arrayList.add(Float.parseFloat(element.getText().replace("$", "").trim()));
+		}
+
+		System.out.println("============ Sorted Data on UI ============");
+		for (Float name : arrayList) {
+			System.out.println(name);
+		}
+
+		// Copy to new array list then SORT in code
+		ArrayList<Float> sortedList = new ArrayList<Float>();
+		for (Float child : arrayList) {
+			sortedList.add(child);
+		}
+
+		// Execute SORT ASC
+		Collections.sort(sortedList);
+		System.out.println("============ Sorted ASC Data on Code ============");
+		for (Float name : sortedList) {
+			System.out.println(name);
+		}
+
+		// Verify sorted data on UI vs Sorted Data on Code
+		return sortedList.equals(arrayList);
+
+	}
+	
+	public boolean isPriceSortedDecending(WebDriver driver, String locator) {
+		// Declare Array List
+		ArrayList<Float> arrayList = new ArrayList<Float>();
+
+		// Find all element that matching with condition (Name / Price / ...)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+
+		// Get text of each element then add to Array List
+		for (WebElement element : elementList) {
+			arrayList.add(Float.parseFloat(element.getText().replace("$", "").trim()));
+		}
+
+		System.out.println("============ Sorted Data on UI ============");
+		for (Float name : arrayList) {
+			System.out.println(name);
+		}
+
+		// Copy to new array list then SORT in code
+		ArrayList<Float> sortedList = new ArrayList<Float>();
+		for (Float child : arrayList) {
+			sortedList.add(child);
+		}
+
+		// Execute SORT ASC
+		Collections.sort(sortedList);
+		Collections.reverse(sortedList);
+		
+		System.out.println("============ Sorted ASC Data on Code ============");
+		for (Float name : sortedList) {
+			System.out.println(name);
+		}
+
+		// Verify sorted data on UI vs Sorted Data on Code
+		return sortedList.equals(arrayList);
+
+	}
+	
+	
+	
+	/*Sort by date*/
+	
+	public boolean isCreatedDateSortedAscending(WebDriver driver, String locator) {
+		// Declare Array List
+		ArrayList<Date> arrayList = new ArrayList<Date>();
+
+		// Find all element that matching with condition (Name / Price / ...)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+
+		// Get text of each element then add to Array List
+		for (WebElement element : elementList) {
+			arrayList.add(convertStringToDate(element.getText()));
+		}
+
+		System.out.println("============ Sorted Data on UI ============");
+		for (Date name : arrayList) {
+			System.out.println(name);
+		}
+
+		// Copy to new array list then SORT in code
+		ArrayList<Date> sortedList = new ArrayList<Date>();
+		for (Date child : arrayList) {
+			sortedList.add(child);
+		}
+
+		// Execute SORT ASC
+		Collections.sort(sortedList);
+		System.out.println("============ Sorted ASC Data on Code ============");
+		for (Date name : sortedList) {
+			System.out.println(name);
+		}
+
+		// Verify sorted data on UI vs Sorted Data on Code
+		return sortedList.equals(arrayList);
+
+	}
+	
+	public Date convertStringToDate(String dateInString) {
+		dateInString = dateInString.replace(",", "");
+		SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+		Date date = null;
+		try {
+			date = formatter.parse(dateInString);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return date;
+	}
+	
+	
+	
+	
+	/*waitForJStoLoad*/
 	public boolean waitForJStoLoad(WebDriver driver) {
 
-	  
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		jsExecutor = (JavascriptExecutor) driver;
 
-	    // wait for jQuery to load
-	    ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
-	      @Override
-	      public Boolean apply(WebDriver driver) {
-	        try {
-	          return ((Long)jsExecutor.executeScript("return jQuery.active") == 0);
-	        }
-	        catch (Exception e) {
-	          return true;
-	        }
-	      }
-	    };
+		// wait for jQuery to load
+		ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver driver) {
+				try {
+					return ((Long) jsExecutor.executeScript("return jQuery.active") == 0);
+				} catch (Exception e) {
+					return true;
+				}
+			}
+		};
 
-	    // wait for Javascript to load
-	    ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
-	      @Override
-	      public Boolean apply(WebDriver driver) {
-	        return jsExecutor.executeScript("return document.readyState")
-	            .toString().equals("complete");
-	      }
-	    };
+		// wait for Javascript to load
+		ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver driver) {
+				return jsExecutor.executeScript("return document.readyState").toString().equals("complete");
+			}
+		};
 
-	  return explicitWait.until(jQueryLoad) && explicitWait.until(jsLoad);
+		return explicitWait.until(jQueryLoad) && explicitWait.until(jsLoad);
 	}
 
 	public void waitForElementVisible(WebDriver driver, String locator) {
@@ -540,8 +758,8 @@ public abstract class AbstractPage {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(locator)));
 	}
-	
-	public void waitForElementInvisible(WebDriver driver, String locator,String... values) {
+
+	public void waitForElementInvisible(WebDriver driver, String locator, String... values) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(castToObject(locator, values))));
 	}
@@ -571,7 +789,7 @@ public abstract class AbstractPage {
 		}
 		fullFileName = fullFileName.trim();
 		sendkeyToElement(driver, AbstractWordpressPageUI.UPLOAD_FILE_TYPE, fullFileName);
-		//sleepInSeconds(1);
+		// sleepInSeconds(1);
 	}
 
 	public boolean areFileUplaodedDisplayed(WebDriver driver, String... fileNames) {
@@ -580,7 +798,7 @@ public abstract class AbstractPage {
 		waitForJStoLoad(driver);
 		waitForAllElementsInvisible(driver, AbstractWordpressPageUI.MEDIA_PROGRESS_BAR_ICON);
 		waitForElementsVisible(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
-	
+
 		elements = findElementsByXpath(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
 
 		// ArrayList chứa những giá trị này
@@ -752,20 +970,17 @@ public abstract class AbstractPage {
 	public boolean isRowValueUndisplayedAtColumn(WebDriver driver, String columnName, String rowValue) {
 		return isElementUndisplayed(driver, AbstractWordpressPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, rowValue);
 	}
-	
+
 	public boolean isPostDisplayedOnLatestPost(WebDriver driver, String categoryName, String postTitle, String createdDate) {
 		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, postTitle, createdDate);
 		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, postTitle, createdDate);
 	}
-	
-
 
 	public boolean isPostImageDisplayedAtPostTitleName(WebDriver driver, String postTitle, String imgName) {
 		imgName = imgName.split("\\.")[0];
 		waitForElementVisible(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName);
 		waitForJStoLoad(driver);
-		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName) 
-				&& isImageLoaded(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName);
+		return isElementDisplayed(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName) && isImageLoaded(driver, AbstractWordpressPageUI.DYNAMIC_POST_AVATAR_IMAGEBY_TITLE, postTitle, imgName);
 	}
 
 	public PostDeatailPageObject clickToPostDetailWithTitleName(WebDriver driver, String postTitle) {
