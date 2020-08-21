@@ -1,0 +1,18 @@
+{
+	"Register": {
+		"firstname": "Doan Vu",
+		"lastname": "Tuan",
+		"company": "Tuan",
+		"email": "Tuan@gmail.com",
+		"password": "123456"
+	},
+	"Login": {
+		"username": "Doan Vu",
+		"password": "123456"
+	},
+	"firstname": "Doan Vu",
+	"lastname": "Tuan",
+	"company": "Tuan",
+	"email": "Tuan1@gmail.com",
+	"password": "123456"
+}

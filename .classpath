@@ -6,11 +6,6 @@
 	<classpathentry kind="src" path="interfaces"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="libraries/selenium-java-2.53.1-srcs.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/commons-lang3-3.8.1.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/jarchivelib-1.0.0.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/slf4j-api-1.7.25.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/webdrivermanager-3.7.1.jar"/>
 	<classpathentry kind="lib" path="libraries/selenium-server-standalone-3.141.59.jar"/>
 	<classpathentry kind="lib" path="libLog/commons-io-2.6.jar"/>
 	<classpathentry kind="lib" path="libLog/log4j-1.2.16.jar" sourcepath="C:/Users/Tuan/AppData/Local/Temp/.org.sf.feeling.decompiler1596680071078/source/log4j-1.2.16-sources.jar"/>
@@ -19,15 +14,6 @@
 	<classpathentry kind="lib" path="libReportNG/reportng-1.1.4.jar"/>
 	<classpathentry kind="lib" path="libReportNG/velocity-1.4.jar"/>
 	<classpathentry kind="lib" path="libLog/commons-codec-1.11.jar"/>
-	<classpathentry kind="lib" path="libLog/commons-lang3-3.8.1.jar"/>
-	<classpathentry kind="lib" path="libLog/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/commons-codec-1.10.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/commons-io-2.6.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/gson-2.8.5.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/httpclient-4.5.6.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/httpcore-4.4.10.jar"/>
-	<classpathentry kind="lib" path="driverManagerLib/jsoup-1.11.3.jar"/>
 	<classpathentry kind="lib" path="libraries/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="libraries/guice-3.0.jar"/>
 	<classpathentry kind="lib" path="libraries/reportng-1.1.4.jar"/>
@@ -39,7 +25,6 @@
 	<classpathentry kind="lib" path="libExtentReportV4/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="libExtentReportV4/extentreports-4.0.9.jar" sourcepath="C:/Users/Tuan/AppData/Local/Temp/.org.sf.feeling.decompiler1597620632301/source/extentreports-4.0.9-sources.jar"/>
 	<classpathentry kind="lib" path="libExtentReportV4/freemarker-2.3.23.jar"/>
-	<classpathentry kind="lib" path="libExtentReportV4/gson-2.8.5.jar"/>
 	<classpathentry kind="lib" path="libExtentReportV4/httpclient-4.5.2.jar"/>
 	<classpathentry kind="lib" path="libExtentReportV4/httpcore-4.4.4.jar"/>
 	<classpathentry kind="lib" path="libExtentReportV4/httpmime-4.5.2.jar"/>
@@ -48,5 +33,24 @@
 	<classpathentry kind="lib" path="libExtentReportV4/mongodb-driver-core-3.3.0.jar"/>
 	<classpathentry kind="lib" path="libExtentReportV4/testng-6.9.10.jar"/>
 	<classpathentry kind="lib" path="libraries/joda-time-2.0.jar"/>
+	<classpathentry kind="lib" path="libExtentReportV4/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/commons-codec-1.13.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/commons-compress-1.18.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/commons-io-2.7.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/commons-lang3-3.10.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/httpclient5-5.0.1.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/httpcore5-5.0.1.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/jarchivelib-1.0.0.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/jsoup-1.13.1.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="driverManagerLib4.1.0/webdrivermanager-4.1.0.jar"/>
+	<classpathentry kind="lib" path="libLog/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="libFaker/generex-1.0.2.jar"/>
+	<classpathentry kind="lib" path="libFaker/javafaker-1.0.1.jar"/>
+	<classpathentry kind="lib" path="libFaker/snakeyaml-1.23.jar"/>
+	<classpathentry kind="lib" path="libJackson/jackson-annotations-2.10.0.jar"/>
+	<classpathentry kind="lib" path="libJackson/jackson-core-2.10.0.jar"/>
+	<classpathentry kind="lib" path="libJackson/jackson-databind-2.10.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

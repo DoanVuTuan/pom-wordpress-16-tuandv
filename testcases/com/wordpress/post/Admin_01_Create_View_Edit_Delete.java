@@ -53,7 +53,7 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 
 		log.info("Login Page : Step 04 - Navigate to Dashboard page");
 		dashboardAdminPage = loginAdminPage.clickToContinueOrLoginButton();
-
+		showBrowserConsoleLogs(driver);
 		log.info("Dasboard Page : Step 01 - Verify header text displayed");
 		verifyTrue(dashboardAdminPage.isHeaderTextDisplayed());
 
@@ -262,7 +262,7 @@ public class Admin_01_Create_View_Edit_Delete extends AbstractTest {
 	
 
 
-	@AfterClass
+	@AfterClass (alwaysRun = true)
 	public void afterClass() {
 		log.info("Post-condition : Close browser");
 		closeBrowserAndDriver(driver);

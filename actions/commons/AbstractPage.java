@@ -789,13 +789,12 @@ public abstract class AbstractPage {
 		}
 		fullFileName = fullFileName.trim();
 		sendkeyToElement(driver, AbstractWordpressPageUI.UPLOAD_FILE_TYPE, fullFileName);
-		// sleepInSeconds(1);
+		sleepInSeconds(1);
 	}
 
 	public boolean areFileUplaodedDisplayed(WebDriver driver, String... fileNames) {
 		boolean status = false;
 		int number = fileNames.length;
-		waitForJStoLoad(driver);
 		waitForAllElementsInvisible(driver, AbstractWordpressPageUI.MEDIA_PROGRESS_BAR_ICON);
 		waitForElementsVisible(driver, AbstractWordpressPageUI.ALL_UPLOADED_IMG);
 

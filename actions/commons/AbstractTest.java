@@ -1,6 +1,10 @@
 package commons;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -10,8 +14,12 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
 import org.testng.Assert;
 import org.testng.Reporter;
 
@@ -28,18 +36,57 @@ public abstract class AbstractTest {
 		log = LogFactory.getLog(getClass());
 	}
 
+	protected void showBrowserConsoleLogs(WebDriver drive) {
+		if (driver.toString().contains("chrome")) {
+			LogEntries logs = driver.manage().logs().get("browser");
+			List<LogEntry> logList = logs.getAll();
+			for (LogEntry logging : logList) {
+				System.out.println("--------------- " + logging.getLevel().toString() + "--------------- \n" + logging.getMessage());
+			}
+		}
+	}
+
 	protected WebDriver getBrowserDriver(String browserName) {
 		if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
+			System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
+			System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,GlobalConstants.BROWSER_LOG_FOLDER + "\\Firefox"+getDateNumber()+".log");
+			FirefoxOptions options = new FirefoxOptions();
+			options.addArguments("-private");
+			/*setting download folder*/
+			options.addPreference("browser.download.folderList", 2);
+			options.addPreference("browser.download.dir", GlobalConstants.DOWNLOAD_FOLDER);
+			options.addPreference("browser.download.useDownloadDir", true);
+			options.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
+			options.addPreference("pdfjs.disabled", true);
+			driver = new FirefoxDriver(options);
+		} else if (browserName.equalsIgnoreCase("firefox_headless")) {
+			WebDriverManager.firefoxdriver().setup();
+			FirefoxOptions firefoxOptions = new FirefoxOptions();
+			firefoxOptions.setHeadless(true);
+			driver = new FirefoxDriver(firefoxOptions);
 		} else if (browserName.equalsIgnoreCase("chrome")) {
-
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			/*setting download folder*/
+			HashMap<String, Object> chromePerfs = new HashMap<String, Object>();
+			chromePerfs.put("profile.default_content_settings.popups", 0);
+			chromePerfs.put("download.default_directory",GlobalConstants.DOWNLOAD_FOLDER);
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--incognito");
+			/*Disabled info bar*/
+			options.setExperimentalOption("useAutomationExtension", false);
+			options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+			options.setExperimentalOption("prefs", chromePerfs);
+			driver = new ChromeDriver(options);
 		} else if (browserName.equalsIgnoreCase("edge")) {
-
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
+		} else if (browserName.equalsIgnoreCase("chrome_headless")) {
+			WebDriverManager.chromedriver().setup();
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("headless");
+			options.addArguments("window-size=11920x1080");
+			driver = new ChromeDriver(options);
 		} else {
 			System.out.println("Please select browser!");
 		}
@@ -202,7 +249,14 @@ public abstract class AbstractTest {
 	}
 
 	protected String getWordpressToday() {
+
 		return getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear();
+	}
+	
+	private String getDateNumber() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+		Date date = new Date();
+		return formatter.format(date);
 	}
 
 }
